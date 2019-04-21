@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <font
+        android:font="@font/roboto_light"
+        tools:targetApi="o" />
+
+    <font
+        android:font="@font/roboto_regular"
+        tools:targetApi="o" />
+
+    <font
+        android:font="@font/roboto_medium"
+        tools:targetApi="o" />
+
+    <font
+        android:font="@font/gilroy_regular"
+        tools:targetApi="o" />
+
+
+    <font
+        android:font="@font/gilroy_bold"
+        tools:targetApi="o" />
+
+
+</font-family>
