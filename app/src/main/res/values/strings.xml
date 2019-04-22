@@ -20,4 +20,15 @@
     <string name="label_home">Home</string>
     <string name="label_more">More</string>
     <string name="label_courses">Courses</string>
+    <string name="label_logout">Logout</string>
+
+
+    <string-array name="menu_items">
+        <item>Exercises</item>
+        <item>E_wallet</item>
+        <item>Favourites</item>
+        <item>Rate Us</item>
+        <item>Settings</item>
+        <item>Invite Friends</item>
+    </string-array>
 </resources>

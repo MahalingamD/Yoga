@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_16"
                 android:layout_marginBottom="@dimen/margin_10"
-                android:fontFamily="@font/gilroy_bold"
+                android:fontFamily="@font/gilroy_light"
                 android:text="@string/label_forgot_password"
                 android:textColor="@color/login_forgot_text"
                 android:textSize="@dimen/font_14" />
@@ -108,9 +108,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/gilroy_regular"
+                    android:fontFamily="@font/gilroy_light"
                     android:gravity="center"
-                    android:text="@string/label_login_with" />
+                    android:text="@string/label_login_with"
+                    android:textSize="@dimen/font_12" />
 
                 <View
                     android:layout_width="0dp"
@@ -154,6 +155,7 @@
                     android:padding="@dimen/margin_10"
                     android:visibility="gone" />
 
+
                 <Button
                     android:id="@+id/login_google_btn"
                     android:layout_width="0dp"
@@ -169,6 +171,7 @@
                     android:textSize="@dimen/font_14" />
 
             </LinearLayout>
+
 
         </LinearLayout>
     </ScrollView>

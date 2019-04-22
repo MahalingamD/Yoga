@@ -20,8 +20,11 @@ android {
             //kmk
         }
         debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
             resValue "string", "FACEBOOK_APP_ID", "860083914330764"
-            // buildConfigField("String", "FACEBOOK_APP_ID", '"860083914330764"')
+            buildConfigField("String", "FACEBOOK_APP_ID", '"860083914330764"')
         }
     }
 }

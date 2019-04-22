@@ -6,6 +6,10 @@ import android.app.Application;
 import android.content.ContextWrapper;
 
 
+import com.facebook.FacebookSdk;
+import com.facebook.appevents.AppEventsLogger;
+import com.yoga.app.BuildConfig;
+import com.yoga.app.R;
 import com.yoga.app.utils.Prefs;
 
 
@@ -24,6 +28,8 @@ public class AppController extends Application {
       super.onCreate();
       myInstance = this;
 
+     // FacebookSdk.sdkInitialize(myInstance);
+     // AppEventsLogger.activateApp(myInstance, BuildConfig.FACEBOOK_APP_ID );
 
       // Initialize the Shared Preferences class
      new Prefs.Builder().setContext( this )

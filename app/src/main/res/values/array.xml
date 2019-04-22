@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="menu_icon_normal">
+        <item>@drawable/ic_exe</item>
+        <item>@drawable/ic_e_wallet</item>
+        <item>@drawable/ic_fav</item>
+        <item>@drawable/ic_rate_us</item>
+        <item>@drawable/ic_more_settings</item>
+        <item>@drawable/ic_invite_friends</item>
+    </string-array>
+
+</resources>

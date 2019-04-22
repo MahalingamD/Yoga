@@ -24,5 +24,6 @@
     <color name="login_disable_text">#ACACAC</color>
 
     <color name="login_forgot_text">#0E0E0E</color>
+    <color name="color_62">#626262</color>
 
 </resources>
