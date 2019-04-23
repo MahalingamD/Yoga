@@ -16,15 +16,19 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             resValue "string", "FACEBOOK_APP_ID", "860083914330764"
-            //  buildConfigField("String", "FACEBOOK_APP_ID", '"860083914330764"')
-            //kmk
+
+            buildConfigField "String", "Main_Base_url", '"https://onlinew3tools.com/demo/yoga_app/api/v1/"'
+            buildConfigField "String", "Date_field", '"yyyy-MM-dd hh:mm:ss.SSS"'
+
         }
         debug {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
             resValue "string", "FACEBOOK_APP_ID", "860083914330764"
-            buildConfigField("String", "FACEBOOK_APP_ID", '"860083914330764"')
+            buildConfigField "String", "Main_Base_url", '"https://onlinew3tools.com/demo/yoga_app/api/v1/"'
+            buildConfigField "String", "Date_field", '"yyyy-MM-dd hh:mm:ss.SSS"'
+
         }
     }
 }
@@ -46,6 +50,9 @@ ext {
     playVersion = '16.0.1'
     //Facebook
     facebookVersion = '4.7.0'
+
+    retrofitVersion = '2.5.0'
+    retrofitGsonVersion = '2.4.0'
 
     //Test
     junitVersion = '4.12'
@@ -85,6 +92,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.8'
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitGsonVersion"
+
+    implementation('com.auron:permission-manage:1.1.7') {
+        exclude module: 'appcompat-v7'
+    }
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
