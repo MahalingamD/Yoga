@@ -1,41 +1,43 @@
 package com.yoga.app.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
-
-public class Data implements Serializable {
-
+/**
+ * Awesome Pojo Generator
+ */
+public class Data {
     @SerializedName("access_token")
-    public String accessToken;
+    @Expose
+    private String access_token;
     @SerializedName("token_type")
-    public String tokenType;
+    @Expose
+    private String token_type;
     @SerializedName("expires_in")
-    public String expiresIn;
+    @Expose
+    private String expires_in;
 
-   /* public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
+    public void setAccess_token(String access_token) {
+        this.access_token = access_token;
     }
 
-    public String getAccessToken() {
-        return accessToken;
+    public String getAccess_token() {
+        return access_token;
     }
 
-    public void setTokenType(String tokenType) {
-        this.tokenType = tokenType;
+    public void setToken_type(String token_type) {
+        this.token_type = token_type;
     }
 
-    public String getTokenType() {
-        return tokenType;
+    public String getToken_type() {
+        return token_type;
     }
 
-    public void setExpiresIn(int expiresIn) {
-        this.expiresIn = expiresIn;
+    public void setExpires_in(String expires_in) {
+        this.expires_in = expires_in;
     }
 
-    public int getExpiresIn() {
-        return expiresIn;
-    }*/
-
-
+    public String getExpires_in() {
+        return expires_in;
+    }
 }

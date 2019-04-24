@@ -1,5 +1,6 @@
 package com.yoga.app.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -9,17 +10,20 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.yoga.app.R;
 import com.yoga.app.fragment.LoginFragment;
 import com.yoga.app.fragment.SignupFragment;
+import com.yoga.app.helper.YogaHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -171,12 +175,64 @@ public class WelcomeActivity extends ActivityManagePermission implements Permiss
 
     @Override
     public void permissionDenied() {
-
+        showAlertDialog("You need permission to use application");
     }
 
     @Override
     public void permissionForeverDenied() {
+        showSettingAlertDialog("You need permission to use application");
+    }
 
+
+    /**
+     * @param aMessage aMessage
+     */
+    public void showAlertDialog(String aMessage) {
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage(aMessage)
+                    .setTitle(mContext.getString(R.string.app_name))
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            askPermission();
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+            // Change the buttons color in dialog
+            Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+            pbutton.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * @param aMessage aMessage
+     */
+    public void showSettingAlertDialog(String aMessage) {
+        try {
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setMessage(aMessage)
+                    .setTitle(mContext.getString(R.string.app_name))
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            YogaHelper.startInstalledAppDetailsActivity(mContext);
+                        }
+                    });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+            // Change the buttons color in dialog
+            Button pbutton = alert.getButton(DialogInterface.BUTTON_POSITIVE);
+            pbutton.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

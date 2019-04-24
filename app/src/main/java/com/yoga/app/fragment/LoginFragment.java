@@ -1,6 +1,7 @@
 package com.yoga.app.fragment;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -9,6 +10,9 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +51,7 @@ import com.yoga.app.activities.MainActivity;
 import com.yoga.app.helper.YogaHelper;
 import com.yoga.app.model.Response;
 import com.yoga.app.service.RetrofitInstance;
+import com.yoga.app.utils.Prefs;
 import com.yoga.app.utils.ProgressDialog;
 
 import org.jetbrains.annotations.NotNull;
@@ -60,6 +65,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
+
+import static com.yoga.app.constant.PrefConstants.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -196,8 +203,12 @@ public class LoginFragment extends Fragment {
             public void onResponse(@NotNull Call<Response> call, @NotNull retrofit2.Response<Response> response) {
                 aProgressDialog.dismiss();
                 Response data = response.body();
-                if(data!=null){
-
+                if (data != null) {
+                    if (data.getSuccess() == 1) {
+                        Prefs.putString(ACCESS_TOKEN, data.getData().getAccess_token());
+                        Prefs.putBoolean("Login_status", true);
+                        callHomeScreen();
+                    }
                 }
             }
 
@@ -208,6 +219,12 @@ public class LoginFragment extends Fragment {
 
             }
         });
+    }
+
+    private void callHomeScreen() {
+        Intent intent = new Intent(getActivity(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 
     private void facebook() {
@@ -249,9 +266,13 @@ public class LoginFragment extends Fragment {
                             FirebaseUserMetadata amata = user.getMetadata();
                             List<UserInfo> aList = (List<UserInfo>) user.getProviderData();
 
+                            callHomeScreen();
+
                             for (UserInfo aUser : aList) {
                                 Log.e("Display is verified", "" + aUser.isEmailVerified());
                             }
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -328,6 +349,8 @@ public class LoginFragment extends Fragment {
 
                             List<UserInfo> aList = (List<UserInfo>) user.getProviderData();
 
+                            callHomeScreen();
+
                             for (UserInfo aUser : aList) {
                                 Log.e("Display is verified", "" + aUser.isEmailVerified());
                             }
@@ -339,5 +362,6 @@ public class LoginFragment extends Fragment {
                     }
                 });
     }
+
 
 }

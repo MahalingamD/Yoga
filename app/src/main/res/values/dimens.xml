@@ -19,4 +19,5 @@
     <dimen name="margin_6">6dp</dimen>
     <dimen name="font_12">12sp</dimen>
     <dimen name="font_10">10sp</dimen>
+    <dimen name="margin_25dp">25dp</dimen>
 </resources>
