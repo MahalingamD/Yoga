@@ -30,5 +30,6 @@
         <item>Rate Us</item>
         <item>Settings</item>
         <item>Invite Friends</item>
+        <item>Logout</item>
     </string-array>
 </resources>

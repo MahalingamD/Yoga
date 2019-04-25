@@ -28,7 +28,7 @@
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="@dimen/margin_25dp"
                     android:src="@drawable/upto" />
@@ -136,6 +136,28 @@
                 android:layout_height="150dp"
                 android:layout_margin="@dimen/margin_10"
                 android:src="@drawable/yoga_benefit" />
+
+            <ImageView
+                android:id="@+id/yoga_health_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:layout_marginRight="@dimen/margin_10"
+                android:src="@drawable/yoga_health" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_margin="@dimen/margin_10"
+                android:src="@drawable/yoga_men" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginRight="@dimen/margin_10"
+                android:layout_marginLeft="@dimen/margin_10"
+                android:src="@drawable/yog_women" />
+
 
         </LinearLayout>
 

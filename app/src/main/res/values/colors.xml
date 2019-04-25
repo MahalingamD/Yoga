@@ -9,6 +9,9 @@
     <color name="error">#F44336</color>
 
     <color name="white">#ffffff</color>
+    <color name="color_progress_bg">#C6CBCF</color>
+
+
     <color name="black">#000000</color>
     <color name="grey">#cccccc</color>
     <color name="dark_grey">#929292</color>

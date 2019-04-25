@@ -52,6 +52,15 @@
             android:value="860083914330764" />-->
 
 
+        <activity
+            android:name=".videoplayer.VideoPlayerActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustResize" >
+
+        </activity>
+
+
+
     </application>
 
 </manifest>
