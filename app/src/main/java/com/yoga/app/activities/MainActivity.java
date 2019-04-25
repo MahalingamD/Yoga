@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.yoga.app.R;
 import com.yoga.app.base.APPFragmentManager;
+import com.yoga.app.fragment.DashboardFragment;
 import com.yoga.app.fragment.MoreFragment;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -24,15 +25,23 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
         mNavigation = findViewById(R.id.navigationView);
         mNavigation.setOnNavigationItemSelectedListener(this);
+        DefaultFragment();
 
+    }
+
+    private void DefaultFragment() {
+        mFragmentManager.clearAllFragments();
+        mFragmentManager.updateContent(new DashboardFragment(), "More Fragment", null);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
+        mFragmentManager.clearAllFragments();
         switch (item.getItemId()) {
+
             case R.id.navigation_home:
-                mFragmentManager.updateContent(new MoreFragment(), "More Fragment", null);
+                mFragmentManager.updateContent(new DashboardFragment(), "More Fragment", null);
                 break;
 
             case R.id.navigation_course:
