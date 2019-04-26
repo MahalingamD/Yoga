@@ -27,9 +27,11 @@
         <item>Exercises</item>
         <item>E_wallet</item>
         <item>Favourites</item>
-        <item>Rate Us</item>
-        <item>Settings</item>
         <item>Invite Friends</item>
+        <item>Rate Us</item>
+        <item>About</item>
+        <item>Feedback</item>
+        <item>FAQ</item>
         <item>Logout</item>
     </string-array>
 </resources>

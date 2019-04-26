@@ -2,12 +2,14 @@
 <resources>
 
     <string-array name="menu_icon_normal">
-        <item>@drawable/ic_exe</item>
+        <item>@drawable/ic_exercise</item>
         <item>@drawable/ic_e_wallet</item>
         <item>@drawable/ic_fav</item>
-        <item>@drawable/ic_rate_us</item>
-        <item>@drawable/ic_more_settings</item>
         <item>@drawable/ic_invite_friends</item>
+        <item>@drawable/ic_rate_us</item>
+        <item>@drawable/ic_about</item>
+        <item>@drawable/ic_feedback</item>
+        <item>@drawable/ic_faq</item>
         <item>@drawable/ic_logout</item>
     </string-array>
 

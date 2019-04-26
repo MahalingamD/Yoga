@@ -28,5 +28,6 @@
 
     <color name="login_forgot_text">#0E0E0E</color>
     <color name="color_62">#626262</color>
+    <color name="divider_color">#E4E4E4</color>
 
 </resources>
