@@ -80,18 +80,48 @@
 
             </LinearLayout>
 
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/margin_8"
                 android:layout_marginBottom="@dimen/margin_8"
-                android:fontFamily="@font/gilroy_bold"
-                android:gravity="center"
-                android:padding="@dimen/margin_8"
-                android:text="@string/label_logout"
-                android:textColor="@color/color_62"
-                android:textSize="@dimen/font_14" />
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/condition"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/gilroy_regular"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_8"
+                    android:text="Terms &amp; Conditions"
+                    android:textColor="@color/color_62"
+                    android:textSize="@dimen/font_14" />
+
+                <View
+                    android:id="@+id/ellipe"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/condition"
+                    android:background="@drawable/ic_ellipse" />
+
+                <TextView
+                    android:id="@+id/policy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_toRightOf="@+id/ellipe"
+                    android:fontFamily="@font/gilroy_regular"
+                    android:gravity="center"
+                    android:padding="@dimen/margin_8"
+                    android:text="Policy"
+                    android:textColor="@color/color_62"
+                    android:textSize="@dimen/font_14" />
+            </RelativeLayout>
         </LinearLayout>
     </ScrollView>
 
