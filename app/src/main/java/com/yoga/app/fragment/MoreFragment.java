@@ -3,6 +3,7 @@ package com.yoga.app.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,7 +22,9 @@ import android.widget.Toast;
 
 import com.yoga.app.R;
 import com.yoga.app.activities.MainActivity;
+import com.yoga.app.activities.WelcomeActivity;
 import com.yoga.app.adapter.MorePageAdapter;
+import com.yoga.app.utils.Prefs;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -85,16 +88,52 @@ public class MoreFragment extends Fragment {
     MorePageAdapter.Callback mCallback = new MorePageAdapter.Callback() {
         @Override
         public void click(int aPosition, String s) {
-            Toast.makeText(getActivity(), "callback", Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(getActivity(), "callback", Toast.LENGTH_SHORT).show();
 
             switch (aPosition) {
-
                 case 7: {
                     showFeedbackAlertDialog();
+                    break;
+                }
+                case 9: {
+                    logoutAlertDialog();
+                    break;
                 }
             }
         }
     };
+
+    private void logoutAlertDialog() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+        alertDialog.setTitle(getActivity().getString(R.string.app_name));
+        alertDialog.setIcon(R.mipmap.ic_launcher);
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Are you sure you want to logout?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                Prefs.clear().apply();
+                Intent intent = new Intent(getActivity(), WelcomeActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                getActivity().finish();
+
+            }
+        });
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+
+        // alertDialog.setView(view);
+        alertDialog.show();
+
+    }
 
     private void showFeedbackAlertDialog() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());

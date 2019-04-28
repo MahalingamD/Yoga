@@ -3,7 +3,9 @@ package com.yoga.app.adapter;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +45,13 @@ public class DashboardVerticalAdapter extends RecyclerView.Adapter<DashboardVert
 
         holder.mHeadingTextView.setText(mDashBoardHeading.get(position));
 
-        HorizontalAdapter aHorizontalAdapter = new HorizontalAdapter(mContext, mBannerList);
+        HorizontalAdapter aHorizontalAdapter = new HorizontalAdapter(mContext, mBannerList, position);
         holder.mHorizontalRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
         holder.mHorizontalRecyclerView.setAdapter(aHorizontalAdapter);
         holder.mHorizontalRecyclerView.setNestedScrollingEnabled(false);
+
+
+
         aHorizontalAdapter.notifyDataSetChanged();
     }
 
@@ -70,6 +75,9 @@ public class DashboardVerticalAdapter extends RecyclerView.Adapter<DashboardVert
 
             mHeadingTextView = itemView.findViewById(R.id.HeadingTitle);
             mHorizontalRecyclerView = itemView.findViewById(R.id.horizontal_recyclerView);
+
+            final SnapHelper snapHelper = new PagerSnapHelper();
+            snapHelper.attachToRecyclerView(mHorizontalRecyclerView);
         }
     }
 }

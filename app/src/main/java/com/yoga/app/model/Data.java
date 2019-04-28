@@ -3,12 +3,13 @@ package com.yoga.app.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Awesome Pojo Generator
  */
-public class Data {
+public class Data implements Serializable {
     @SerializedName("access_token")
     @Expose
     private String access_token;
@@ -43,6 +44,12 @@ public class Data {
         return expires_in;
     }
 
+    @SerializedName("account_id")
+    public String account_id = "";
+
+    @SerializedName("otp")
+    public String otp = "";
+
 
     @SerializedName("banner")
     private List<Banner> mBannerList;
@@ -65,5 +72,49 @@ public class Data {
 
     public void setDailyQuotes(DailyQuotes mDailyQuotes) {
         this.mDailyQuotes = mDailyQuotes;
+    }
+
+    @SerializedName("gender")
+    private List<Gender> mGenderList;
+
+    public List<Gender> getmGenderList() {
+        return mGenderList;
+    }
+
+    public void setmGenderList(List<Gender> mGenderList) {
+        this.mGenderList = mGenderList;
+    }
+
+    @SerializedName("health_disorder")
+    private List<HealthDisorder> mDisorderList;
+
+    public List<HealthDisorder> getmDisorderList() {
+        return mDisorderList;
+    }
+
+    public void setmDisorderList(List<HealthDisorder> mDisorderList) {
+        this.mDisorderList = mDisorderList;
+    }
+
+    @SerializedName("profession")
+    private List<Profession> mProfessionList;
+
+    public List<Profession> getmProfessionList() {
+        return mProfessionList;
+    }
+
+    public void setmProfessionList(List<Profession> mProfessionList) {
+        this.mProfessionList = mProfessionList;
+    }
+
+    @SerializedName("country")
+    private List<Country> mCountryList;
+
+    public List<Country> getmCountryList() {
+        return mCountryList;
+    }
+
+    public void setmCountryList(List<Country> mCountryList) {
+        this.mCountryList = mCountryList;
     }
 }
