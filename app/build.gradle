@@ -109,5 +109,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 
+    //video loader
+    implementation 'com.wang.avi:library:2.1.3'
+
+    //exo player
+    implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
+
 
 }

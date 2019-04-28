@@ -21,6 +21,11 @@
     <string name="label_more">More</string>
     <string name="label_courses">Courses</string>
     <string name="label_logout">Logout</string>
+    <string name="about_course">About Course</string>
+    <string name="sample_desc">Awesome!! phone looks so good and display is very nice it worth the money. After all you can not get more than this in this price range. Camera is very good in sunlight and face also works good.. In last just go for it.</string>
+    <string name="label_add_fav">Add to Favourite</string>
+    <string name="course_videos">Course Videos</string>
+    <string name="play_btn">Play</string>
 
 
     <string-array name="menu_items">

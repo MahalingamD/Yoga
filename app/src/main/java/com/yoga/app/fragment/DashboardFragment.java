@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.yoga.app.R;
+import com.yoga.app.activities.CourseActivity;
 import com.yoga.app.activities.MainActivity;
 import com.yoga.app.adapter.DashboardVerticalAdapter;
 import com.yoga.app.adapter.ViewpagerAdapter;
@@ -82,13 +83,11 @@ public class DashboardFragment extends Fragment {
     }
 
     private void setRecyclerView() {
-
         for (int i = 1; i <=5; i++) {
             aDashBoardHeading.add("Heading " + i);
         }
-
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-         mDashboardVerticalAdapter = new DashboardVerticalAdapter(getActivity(), aDashBoardHeading,mBannerList);
+        mDashboardVerticalAdapter = new DashboardVerticalAdapter(getActivity(), aDashBoardHeading,mBannerList);
         mRecyclerView.setAdapter(mDashboardVerticalAdapter);
         mDashboardVerticalAdapter.notifyDataSetChanged();
     }
@@ -101,6 +100,13 @@ public class DashboardFragment extends Fragment {
         viewPager.setStopScrollWhenTouch(true);
         mAdapter = new ViewpagerAdapter(getActivity(), mBannerList);
         viewPager.setAdapter(mAdapter);
+
+        /*viewPager.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CourseActivity.class));
+            }
+        });*/
     }
 
     @Override

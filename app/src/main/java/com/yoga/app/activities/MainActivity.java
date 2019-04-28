@@ -1,5 +1,6 @@
 package com.yoga.app.activities;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -59,7 +60,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
 
             case R.id.navigation_course:
-                mFragmentManager.updateContent(new MoreFragment(), "More Fragment", null);
+                //mFragmentManager.updateContent(new MoreFragment(), "More Fragment", null);
+                startActivity(new Intent(MainActivity.this, CourseActivity.class));
                 break;
 
             case R.id.navigation_settings:
