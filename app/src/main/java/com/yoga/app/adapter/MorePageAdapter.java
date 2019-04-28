@@ -12,7 +12,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.yoga.app.R;
-import com.yoga.app.fragment.MoreFragment;
 
 import java.util.ArrayList;
 
@@ -22,11 +21,13 @@ public class MorePageAdapter extends RecyclerView.Adapter<MorePageAdapter.ViewHo
     ArrayList<String> mMenuArrayList;
     private ArrayList<Integer> myIcons;
     ArrayList<String> mCheckArrayList;
+    Callback mCallback;
 
-    public MorePageAdapter(FragmentActivity aContext, ArrayList<String> aMenuArrayList, MoreFragment moreFragment1) {
+    public MorePageAdapter(FragmentActivity aContext, ArrayList<String> aMenuArrayList, Callback aCallback) {
         mContext = aContext;
         mMenuArrayList = aMenuArrayList;
         mCheckArrayList = new ArrayList<>();
+        mCallback=aCallback;
 
         TypedArray aIcons = mContext.getResources().obtainTypedArray(R.array.menu_icon_normal);
         myIcons = new ArrayList<>();
@@ -51,10 +52,11 @@ public class MorePageAdapter extends RecyclerView.Adapter<MorePageAdapter.ViewHo
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, final int i) {
 
         viewHolder.mTitleText.setText(mMenuArrayList.get(i));
         viewHolder.mMenuImage.setImageResource(myIcons.get(i));
+
         switch (mCheckArrayList.get(i)) {
             case "1":
                 viewHolder.mDivView.setVisibility(View.VISIBLE);
@@ -69,6 +71,15 @@ public class MorePageAdapter extends RecyclerView.Adapter<MorePageAdapter.ViewHo
                 viewHolder.mPrivacyView.setVisibility(View.GONE);
                 break;
         }
+
+        viewHolder.mMenuLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mCallback.click(i,mMenuArrayList.get(i));
+            }
+        });
+
+
     }
 
     @Override
@@ -80,12 +91,16 @@ public class MorePageAdapter extends RecyclerView.Adapter<MorePageAdapter.ViewHo
 
         TextView mTitleText;
         ImageView mMenuImage;
+
+        RelativeLayout mMenuLayout;
+
         RelativeLayout mPrivacyView;
         View mDivView;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            mMenuLayout = itemView.findViewById(R.id.inflate_nav_menu_layout);
             mTitleText = itemView.findViewById(R.id.inflate_nav_menu_title);
             mMenuImage = itemView.findViewById(R.id.inflate_nav_menu_image);
             mDivView = itemView.findViewById(R.id.divider);
@@ -95,6 +110,6 @@ public class MorePageAdapter extends RecyclerView.Adapter<MorePageAdapter.ViewHo
 
 
     public interface Callback {
-        void click(int aPostion);
+        void click(int aPostion, String s);
     }
 }

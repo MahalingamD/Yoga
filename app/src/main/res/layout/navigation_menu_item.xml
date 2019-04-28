@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:padding="@dimen/margin_8"
-            android:src="@drawable/ic_exe" />
+            android:src="@drawable/ic_profile" />
 
         <TextView
             android:id="@+id/inflate_nav_menu_title"

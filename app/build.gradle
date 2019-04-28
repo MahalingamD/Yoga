@@ -37,7 +37,7 @@ android {
 ext {
     supportLibraryVersion = '28.0.0'
     gsonVersion = '2.8.2'
-    picassoVersion = '2.71828'
+    picassoVersion = '2.5.2'
     retrofitVersion = '2.3.0'
     powerPreferenceVersion = '1.4.0'
     butterKnifeVersion = '8.8.1'
@@ -92,7 +92,7 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:16.0.8'
 
-
+    implementation "com.squareup.picasso:picasso:$picassoVersion"
 
     implementation 'de.hdodenhof:circleimageview:3.0.0'
 

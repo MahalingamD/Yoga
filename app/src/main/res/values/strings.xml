@@ -24,8 +24,9 @@
 
 
     <string-array name="menu_items">
+        <item>Profile</item>
         <item>Exercises</item>
-        <item>E_wallet</item>
+        <item>E-wallet</item>
         <item>Favourites</item>
         <item>Invite Friends</item>
         <item>Rate Us</item>

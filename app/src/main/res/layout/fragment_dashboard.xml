@@ -14,9 +14,16 @@
         android:layout_height="150dp" />
 
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/dashboard_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,8 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="180dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/banner"
-                    />
+                    android:src="@drawable/banner" />
 
                 <ImageView
                     android:layout_width="wrap_content"

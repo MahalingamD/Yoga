@@ -3,6 +3,8 @@ package com.yoga.app.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Awesome Pojo Generator
  */
@@ -39,5 +41,29 @@ public class Data {
 
     public String getExpires_in() {
         return expires_in;
+    }
+
+
+    @SerializedName("banner")
+    private List<Banner> mBannerList;
+
+    public List<Banner> getmBannerList() {
+        return mBannerList;
+    }
+
+    public void setmBannerList(List<Banner> mBannerList) {
+        this.mBannerList = mBannerList;
+    }
+
+
+    @SerializedName("daily_quotes")
+    private DailyQuotes mDailyQuotes;
+
+    public DailyQuotes getDailyQuotes() {
+        return mDailyQuotes;
+    }
+
+    public void setDailyQuotes(DailyQuotes mDailyQuotes) {
+        this.mDailyQuotes = mDailyQuotes;
     }
 }
