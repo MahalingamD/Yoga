@@ -24,54 +24,54 @@ import android.net.NetworkInfo;
 
 public class YogaNetworkManager {
 
-   /**
-    * Check the internet connection and return true or false
-    *
-    * @param aContext Context
-    * @return boolean
-    */
+    public static boolean isInternetOnCheck(Context aContext) {
 
-   public final boolean isInternetOn( Context aContext ) {
-      try {
+        boolean aResult = false;
 
-         try {
+        ConnectivityManager aConnecMan = (ConnectivityManager) aContext.getSystemService(Context.CONNECTIVITY_SERVICE);
+        //
+        if ((aConnecMan.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTED)
+                || (aConnecMan.getNetworkInfo(0).getState() == NetworkInfo.State.CONNECTING)
+                || (aConnecMan.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTING)
+                || (aConnecMan.getNetworkInfo(1).getState() == NetworkInfo.State.CONNECTED)) {
 
-            if( aContext == null )
-               return false;
+            aResult = true;
 
-            ConnectivityManager connectivityManager = ( ConnectivityManager ) aContext
-                    .getSystemService( Context.CONNECTIVITY_SERVICE );
-            NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-            return activeNetworkInfo != null;
-         } catch( Exception e ) {
+        } else if ((aConnecMan.getNetworkInfo(0).getState() == NetworkInfo.State.DISCONNECTED)
+                || (aConnecMan.getNetworkInfo(1).getState() == NetworkInfo.State.DISCONNECTED)) {
+
+            aResult = false;
+        }
+
+        return aResult;
+    }
+
+    /**
+     * Check the internet connection and return true or false
+     *
+     * @param aContext Context
+     * @return boolean
+     */
+
+    public final boolean isInternetOn(Context aContext) {
+        try {
+
+            try {
+
+                if (aContext == null)
+                    return false;
+
+                ConnectivityManager connectivityManager = (ConnectivityManager) aContext
+                        .getSystemService(Context.CONNECTIVITY_SERVICE);
+                NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+                return activeNetworkInfo != null;
+            } catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
-         }
-      } catch( Exception e ) {
-         e.printStackTrace();
-         return false;
-      }
-   }
-
-   public static boolean isInternetOnCheck( Context aContext ) {
-
-      boolean aResult = false;
-
-      ConnectivityManager aConnecMan = ( ConnectivityManager ) aContext.getSystemService( Context.CONNECTIVITY_SERVICE );
-      //
-      if( ( aConnecMan.getNetworkInfo( 0 ).getState() == NetworkInfo.State.CONNECTED )
-              || ( aConnecMan.getNetworkInfo( 0 ).getState() == NetworkInfo.State.CONNECTING )
-              || ( aConnecMan.getNetworkInfo( 1 ).getState() == NetworkInfo.State.CONNECTING )
-              || ( aConnecMan.getNetworkInfo( 1 ).getState() == NetworkInfo.State.CONNECTED ) ) {
-
-         aResult = true;
-
-      } else if( ( aConnecMan.getNetworkInfo( 0 ).getState() == NetworkInfo.State.DISCONNECTED )
-              || ( aConnecMan.getNetworkInfo( 1 ).getState() == NetworkInfo.State.DISCONNECTED ) ) {
-
-         aResult = false;
-      }
-
-      return aResult;
-   }
+        }
+    }
 }

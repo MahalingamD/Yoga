@@ -22,7 +22,7 @@ public class APPFragmentManager {
      *
      * @param aContext FragmentActivity
      */
-    public APPFragmentManager( FragmentActivity aContext ) {
+    public APPFragmentManager(FragmentActivity aContext) {
         myContext = aContext;
     }
 
@@ -33,10 +33,10 @@ public class APPFragmentManager {
      * @param tag       String
      * @param aBundle   Bundle
      */
-    public void updateContent(Fragment aFragment, String tag, Bundle aBundle ) {
+    public void updateContent(Fragment aFragment, String tag, Bundle aBundle) {
         try {
 
-            Log.e( "TAG Screen name", tag );
+            Log.e("TAG Screen name", tag);
 
             // Initialise Fragment Manager
             final FragmentManager aFragmentManager = myContext.getSupportFragmentManager();
@@ -45,15 +45,15 @@ public class APPFragmentManager {
             final FragmentTransaction aTransaction = aFragmentManager.beginTransaction();
 
 
-            if( aBundle != null ) {
-                aFragment.setArguments( aBundle );
+            if (aBundle != null) {
+                aFragment.setArguments(aBundle);
             }
 
             // Add the selected fragment
-            aTransaction.add( R.id.main_container, aFragment, tag );
+            aTransaction.add(R.id.main_container, aFragment, tag);
 
             // add the tag to the backstack
-            aTransaction.addToBackStack( tag );
+            aTransaction.addToBackStack(tag);
 
             // Commit the Fragment transaction
             // aTransaction.commit ();
@@ -62,9 +62,9 @@ public class APPFragmentManager {
 
             myLastTag = tag;
 
-            Log.i( "LastTag", myLastTag );
+            Log.i("LastTag", myLastTag);
 
-        } catch( StackOverflowError | Exception e ) {
+        } catch (StackOverflowError | Exception e) {
             e.printStackTrace();
         }
     }
@@ -78,10 +78,10 @@ public class APPFragmentManager {
         try {
             FragmentManager aFragmentManager = myContext.getSupportFragmentManager();
 
-            for( int i = 0; i < aFragmentManager.getBackStackEntryCount(); ++i ) {
+            for (int i = 0; i < aFragmentManager.getBackStackEntryCount(); ++i) {
                 aFragmentManager.popBackStack();
             }
-        } catch( StackOverflowError | Exception e ) {
+        } catch (StackOverflowError | Exception e) {
             e.printStackTrace();
         }
 
@@ -90,7 +90,7 @@ public class APPFragmentManager {
     public void oneStepBack() {
         FragmentTransaction fts = myContext.getSupportFragmentManager().beginTransaction();
         FragmentManager fragmentManager = myContext.getSupportFragmentManager();
-        if( fragmentManager.getBackStackEntryCount() >= 2 ) {
+        if (fragmentManager.getBackStackEntryCount() >= 2) {
             fragmentManager.popBackStackImmediate();
             fts.commit();
         }
@@ -110,16 +110,16 @@ public class APPFragmentManager {
         try {
 
             FragmentManager aFragmentManager = myContext.getSupportFragmentManager();
-            if( aFragmentManager.getBackStackEntryCount() > 1 ) {
+            if (aFragmentManager.getBackStackEntryCount() > 1) {
                 aFragmentManager.popBackStack();
                 aFragmentManager.executePendingTransactions();
 
-                Log.d( "TAG", "CURRENT FRAGMENT BACK STACK CLASS " + aFragmentManager.getBackStackEntryAt( aFragmentManager.getBackStackEntryCount() - 1 ).getName() );
+                Log.d("TAG", "CURRENT FRAGMENT BACK STACK CLASS " + aFragmentManager.getBackStackEntryAt(aFragmentManager.getBackStackEntryCount() - 1).getName());
 
 
                 //TODO Stop video
-                String aFragmentTag = aFragmentManager.getBackStackEntryAt( aFragmentManager.getBackStackEntryCount() - 1 ).getName();
-                Fragment aFragment = myContext.getSupportFragmentManager().findFragmentByTag( aFragmentTag );
+                String aFragmentTag = aFragmentManager.getBackStackEntryAt(aFragmentManager.getBackStackEntryCount() - 1).getName();
+                Fragment aFragment = myContext.getSupportFragmentManager().findFragmentByTag(aFragmentTag);
                 aFragment.onResume();
 
                /* if( aFragment instanceof BaseFragment ) {
@@ -127,9 +127,9 @@ public class APPFragmentManager {
                 }*/
 
 
-                String aFragmentName = aFragmentManager.getBackStackEntryAt( aFragmentManager.getBackStackEntryCount() - 1 ).getName();
+                String aFragmentName = aFragmentManager.getBackStackEntryAt(aFragmentManager.getBackStackEntryCount() - 1).getName();
             }
-        } catch( StackOverflowError | Exception e ) {
+        } catch (StackOverflowError | Exception e) {
             e.printStackTrace();
         }
     }
@@ -139,25 +139,25 @@ public class APPFragmentManager {
 
         try {
             FragmentManager aFragmentManager = myContext.getSupportFragmentManager();
-            if( aFragmentManager.getBackStackEntryCount() > 0 ) {
+            if (aFragmentManager.getBackStackEntryCount() > 0) {
                 aFragmentManager.popBackStack();
                 aFragmentManager.executePendingTransactions();
 
-                Log.d( "TAG", "CURRENT FRAGMENT BACK STACK CLASS " + aFragmentManager.getBackStackEntryAt( aFragmentManager.getBackStackEntryCount() - 1 ).getName() );
+                Log.d("TAG", "CURRENT FRAGMENT BACK STACK CLASS " + aFragmentManager.getBackStackEntryAt(aFragmentManager.getBackStackEntryCount() - 1).getName());
 
 
                 //TODO Stop video
-                String aFragmentTag = aFragmentManager.getBackStackEntryAt( aFragmentManager.getBackStackEntryCount() - 1 ).getName();
-                Fragment aFragment = myContext.getSupportFragmentManager().findFragmentByTag( aFragmentTag );
+                String aFragmentTag = aFragmentManager.getBackStackEntryAt(aFragmentManager.getBackStackEntryCount() - 1).getName();
+                Fragment aFragment = myContext.getSupportFragmentManager().findFragmentByTag(aFragmentTag);
                 aFragment.onResume();
 
                /* if( aFragment instanceof BaseFragment ) {
                     ( ( BaseFragment ) aFragment ).onResumeFragment();
                 }*/
 
-                String aFragmentName = aFragmentManager.getBackStackEntryAt( aFragmentManager.getBackStackEntryCount() - 1 ).getName();
+                String aFragmentName = aFragmentManager.getBackStackEntryAt(aFragmentManager.getBackStackEntryCount() - 1).getName();
             }
-        } catch( StackOverflowError | Exception e ) {
+        } catch (StackOverflowError | Exception e) {
             e.printStackTrace();
         }
     }

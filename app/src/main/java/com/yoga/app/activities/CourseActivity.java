@@ -22,7 +22,7 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
 
     FragmentActivity myContext;
     TextView aboutTXT, addtofavTXT, titleTXT, categoryTXT;
-    ImageView favIMG, trailIMG;
+    ImageView favIMG, trailIMG, backIMG;
     RecyclerView courseVideoRCLE;
     RelativeLayout trailLAY;
     LinearLayout favLAY;
@@ -72,11 +72,13 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
         courseVideoRCLE = findViewById(R.id.course_video_list);
         trailLAY = findViewById(R.id.course_trail_video_lay);
         favLAY = findViewById(R.id.course_add_to_fav_lay);
+        backIMG = findViewById(R.id.back_arrow);
     }
 
     private void listeners() {
         trailLAY.setOnClickListener(this);
         favLAY.setOnClickListener(this);
+        backIMG.setOnClickListener(this);
     }
 
     private void setRecyclerView() {
@@ -111,6 +113,10 @@ public class CourseActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.course_add_to_fav_lay:
+                break;
+
+            case R.id.back_arrow:
+                finish();
                 break;
         }
     }

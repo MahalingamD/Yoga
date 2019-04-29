@@ -20,12 +20,12 @@ public class ProgressDialog extends Dialog {
     private TextView myLoadingTxt;
     private ProgressWheel myProgressWheel;
 
-    public ProgressDialog( FragmentActivity context) {
+    public ProgressDialog(FragmentActivity context) {
         super(context);
         myContext = context;
         try {
             this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            this.setContentView( R.layout.custom_dialog_box);
+            this.setContentView(R.layout.custom_dialog_box);
             this.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myLoadingTxt = (TextView) this.findViewById(R.id.custom_dialog_box_TXT_loading);
             myProgressWheel = (ProgressWheel) this.findViewById(R.id.custom_dialog_box_PB_loading);

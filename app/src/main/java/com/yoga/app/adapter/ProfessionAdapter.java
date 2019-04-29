@@ -1,7 +1,6 @@
 package com.yoga.app.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.yoga.app.R;
-import com.yoga.app.model.HealthDisorder;
 import com.yoga.app.model.Profession;
 
 import java.util.ArrayList;

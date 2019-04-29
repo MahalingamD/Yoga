@@ -62,22 +62,22 @@
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:paddingBottom="5dp"
-        android:paddingRight="10dp">
+        android:paddingRight="10dp"
+        android:paddingBottom="5dp">
 
         <com.google.android.exoplayer2.ui.DefaultTimeBar
             android:id="@id/exo_progress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:scrubber_enabled_size="0dp"
             app:scrubber_disabled_size="0dp"
-            app:scrubber_dragged_size="0dp" />
+            app:scrubber_dragged_size="0dp"
+            app:scrubber_enabled_size="0dp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="22dp"
-            android:clickable="true"
-            android:background="@null"/>
+            android:background="@null"
+            android:clickable="true" />
 
         <LinearLayout
             android:layout_width="match_parent"

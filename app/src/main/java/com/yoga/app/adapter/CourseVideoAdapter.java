@@ -60,6 +60,10 @@ public class CourseVideoAdapter extends RecyclerView.Adapter<CourseVideoAdapter.
         return mCourseVideosArrayList.size();
     }
 
+    public interface Callback {
+        void click(int aPostion, String s);
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         CardView parent;
@@ -74,10 +78,5 @@ public class CourseVideoAdapter extends RecyclerView.Adapter<CourseVideoAdapter.
             durationTXT = itemView.findViewById(R.id.course_list_duration_txt);
             thumpnail = itemView.findViewById(R.id.course_list_image);
         }
-    }
-
-
-    public interface Callback {
-        void click(int aPostion, String s);
     }
 }

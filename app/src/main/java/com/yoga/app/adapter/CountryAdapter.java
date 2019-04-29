@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import com.yoga.app.R;
 import com.yoga.app.model.Country;
-import com.yoga.app.model.Gender;
 
 import java.util.ArrayList;
 

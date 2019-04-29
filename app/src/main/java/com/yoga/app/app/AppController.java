@@ -2,43 +2,36 @@ package com.yoga.app.app;
 
 
 import android.app.Application;
-
 import android.content.ContextWrapper;
 
-
-import com.facebook.FacebookSdk;
-import com.facebook.appevents.AppEventsLogger;
-import com.yoga.app.BuildConfig;
-import com.yoga.app.R;
 import com.yoga.app.utils.Prefs;
 
 
 public class AppController extends Application {
 
-   public static final String TAG = AppController.class.getSimpleName();
-   private static AppController myInstance;
+    public static final String TAG = AppController.class.getSimpleName();
+    private static AppController myInstance;
 
-   public static synchronized AppController getInstance() {
-      return myInstance;
-   }
+    public static synchronized AppController getInstance() {
+        return myInstance;
+    }
 
 
-   @Override
-   public void onCreate() {
-      super.onCreate();
-      myInstance = this;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        myInstance = this;
 
-     // FacebookSdk.sdkInitialize(myInstance);
-     // AppEventsLogger.activateApp(myInstance, BuildConfig.FACEBOOK_APP_ID );
+        // FacebookSdk.sdkInitialize(myInstance);
+        // AppEventsLogger.activateApp(myInstance, BuildConfig.FACEBOOK_APP_ID );
 
-      // Initialize the Shared Preferences class
-     new Prefs.Builder().setContext( this )
-              .setMode( ContextWrapper.MODE_PRIVATE )
-              .setPrefsName( getPackageName() )
-              .setUseDefaultSharedPreference( true ).build();
+        // Initialize the Shared Preferences class
+        new Prefs.Builder().setContext(this)
+                .setMode(ContextWrapper.MODE_PRIVATE)
+                .setPrefsName(getPackageName())
+                .setUseDefaultSharedPreference(true).build();
 
-   }
-
+    }
 
 
 }
