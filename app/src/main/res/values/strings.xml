@@ -29,6 +29,12 @@
 
     <string name="label_health_disorder">Health Disorder</string>
     <string name="label_profession">Profession</string>
+    <string name="label_testimonials_n_videos">Testimonials \n videos</string>
+    <string name="label_yoga_n_poses">Yoga \n Poses</string>
+    <string name="label_begginer_n_video">Beginner \n video</string>
+    <string name="label_daily_quotes">Daily Quotes</string>
+    <string name="label_daily_tasks">Daily Tasks</string>
+    <string name="label_benefits_of_yoga">Benefits of Yoga</string>
 
 
     <string-array name="menu_items">

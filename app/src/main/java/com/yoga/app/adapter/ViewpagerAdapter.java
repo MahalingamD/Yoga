@@ -18,55 +18,57 @@ import java.util.List;
 
 public class ViewpagerAdapter extends PagerAdapter {
 
-    private FragmentActivity activity;
+   private FragmentActivity activity;
 
-    List<Banner> mBannerList;
-
-
-    public ViewpagerAdapter(FragmentActivity aActivity, List<Banner> aBannerList) {
-        mBannerList = aBannerList;
-        activity = aActivity;
-    }
-
-    @Override
-    public Object instantiateItem(ViewGroup container, int position) {
-        LayoutInflater inflater = ((Activity) activity).getLayoutInflater();
-        View viewItem = inflater.inflate(R.layout.pager_item, container, false);
-
-        ImageView imageView = viewItem.findViewById(R.id.pager_image);
-        // mBannerList.get(position)
-
-        Picasso.with(activity).load(mBannerList.get(position).banner_file).placeholder(R.drawable.banner).into(imageView);
+   List<Banner> mBannerList;
 
 
-        //imageView.setImageResource(imagesArray[position]);
-        // TextView textView1 = (TextView) viewItem.findViewById(R.id.textview);
-        //textView1.setText(namesArray[position]);
-        ((ViewPager) container).addView(viewItem);
+   public ViewpagerAdapter( FragmentActivity aActivity, List<Banner> aBannerList ) {
+      mBannerList = aBannerList;
+      activity = aActivity;
+   }
 
-        return viewItem;
-    }
+   @Override
+   public Object instantiateItem( ViewGroup container, int position ) {
+      LayoutInflater inflater = ( ( Activity ) activity ).getLayoutInflater();
+      View viewItem = inflater.inflate( R.layout.pager_item, container, false );
 
-    @Override
-    public int getCount() {
-        // TODO Auto-generated method stub
-        return mBannerList.size();
-    }
+      ImageView imageView = viewItem.findViewById( R.id.pager_image );
+      // mBannerList.get(position)
 
-    @Override
-    public boolean isViewFromObject(View view, Object object) {
-        // TODO Auto-generated method stub
-        return view == ((View) object);
-    }
+      Banner aBanner = mBannerList.get( position );
 
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        // TODO Auto-generated method stub
-        ((ViewPager) container).removeView((View) object);
-    }
+      if( aBanner.banner_file_type.contains( "image" ) ) {
+         Picasso.with( activity ).load( mBannerList.get( position ).banner_file ).placeholder( R.drawable.banner ).into( imageView );
+      } else if( aBanner.banner_file_type.contains( "video" ) ) {
+         Picasso.with( activity ).load( mBannerList.get( position ).banner_thumbnail ).placeholder( R.drawable.banner ).into( imageView );
+      }
 
-    public void updateAdapter(ArrayList<Banner> aBannerList) {
-        mBannerList = aBannerList;
-        this.notifyDataSetChanged();
-    }
+      ( ( ViewPager ) container ).addView( viewItem );
+
+      return viewItem;
+   }
+
+   @Override
+   public int getCount() {
+      // TODO Auto-generated method stub
+      return mBannerList.size();
+   }
+
+   @Override
+   public boolean isViewFromObject( View view, Object object ) {
+      // TODO Auto-generated method stub
+      return view == ( ( View ) object );
+   }
+
+   @Override
+   public void destroyItem( ViewGroup container, int position, Object object ) {
+      // TODO Auto-generated method stub
+      ( ( ViewPager ) container ).removeView( ( View ) object );
+   }
+
+   public void updateAdapter( ArrayList<Banner> aBannerList ) {
+      mBannerList = aBannerList;
+      this.notifyDataSetChanged();
+   }
 }

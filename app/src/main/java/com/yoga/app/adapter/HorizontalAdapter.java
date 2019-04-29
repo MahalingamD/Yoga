@@ -14,126 +14,108 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import com.yoga.app.R;
 import com.yoga.app.model.Banner;
+import com.yoga.app.model.Category;
 
 import java.util.ArrayList;
 
 public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Banner> mBannerList;
-    private FragmentActivity mContext;
-    int mPosition;
+   private ArrayList<Category.Courses> mCourseList;
+   private FragmentActivity mContext;
+   private int mPosition;
+   private Category mCategory;
 
-    private static final int LAYOUT_ONE = 0;
-    private static final int LAYOUT_TWO = 1;
-
-
-    HorizontalAdapter(FragmentActivity aContext, ArrayList<Banner> aBannerList, int aPosition) {
-        mContext = aContext;
-        mBannerList = aBannerList;
-        mPosition = aPosition;
-    }
-
-    @NonNull
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        /*View itemLayoutView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.dashboard_horizontal_layout, null);
-        return new ViewHolder(itemLayoutView);
-*/
-        View view = null;
-        RecyclerView.ViewHolder viewHolder = null;
-
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        mContext.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int height = displayMetrics.heightPixels;
-        int width = displayMetrics.widthPixels;
-
-        if (viewType == LAYOUT_ONE) {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one, parent, false);
-            ViewGroup.LayoutParams params = view.getLayoutParams();
-            params.width = (int)(width * 0.8);
-            view.setLayoutParams(params);
-
-            viewHolder = new ViewHolderOne(view);
-        } else {
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dashboard_horizontal_layout, parent, false);
-
-            ViewGroup.LayoutParams params = view.getLayoutParams();
-            params.width = (int)(width * 0.8);
-            view.setLayoutParams(params);
-
-            viewHolder = new ViewHolder(view);
-        }
+   private static final int LAYOUT_ONE = 0;
+   private static final int LAYOUT_TWO = 1;
 
 
-        return viewHolder;
+   HorizontalAdapter( FragmentActivity aContext, Category aCategory, ArrayList<Category.Courses> aCourseList, int aPosition ) {
+      mContext = aContext;
+      mCourseList = aCourseList;
+      mPosition = aPosition;
+      mCategory = aCategory;
+   }
 
-    }
+   @NonNull
+   @Override
+   public RecyclerView.ViewHolder onCreateViewHolder( @NonNull ViewGroup parent, int viewType ) {
 
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        Banner aBanner = mBannerList.get(position);
-        if (viewHolder.getItemViewType() == LAYOUT_ONE) {
-        } else {
-            ViewHolder vaultItemHolder = (ViewHolder) viewHolder;
-            Picasso.with(mContext).load(aBanner.banner_file).
-                    placeholder(R.drawable.yoga_benefit).into(vaultItemHolder.mImageView);
+      View view = null;
+      RecyclerView.ViewHolder viewHolder = null;
 
-        }
-    }
+      DisplayMetrics displayMetrics = new DisplayMetrics();
+      mContext.getWindowManager().getDefaultDisplay().getMetrics( displayMetrics );
+      int height = displayMetrics.heightPixels;
+      int width = displayMetrics.widthPixels;
 
-   /* @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+      if( viewType == LAYOUT_ONE ) {
+         view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.one, parent, false );
+         ViewGroup.LayoutParams params = view.getLayoutParams();
+         params.width = ( int ) ( width * 0.8 );
+         view.setLayoutParams( params );
+
+         viewHolder = new ViewHolderOne( view );
+      } else {
+         view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.dashboard_horizontal_layout, parent, false );
+
+         ViewGroup.LayoutParams params = view.getLayoutParams();
+         params.width = ( int ) ( width * 0.8 );
+         view.setLayoutParams( params );
+
+         viewHolder = new ViewHolder( view );
+      }
 
 
-        *//*if (mPosition == 0) {
-            holder.mDailyYogaLayout.setVisibility(View.VISIBLE);
-            holder.mCategoryLayout.setVisibility(View.GONE);
-        } else {
-            holder.mCategoryLayout.setVisibility(View.VISIBLE);
-            holder.mDailyYogaLayout.setVisibility(View.GONE);
-            Picasso.with(mContext).load(aBanner.banner_file).
-                    placeholder(R.drawable.yoga_benefit).into(holder.mImageView);
-        }*//*
+      return viewHolder;
 
+   }
 
-    }
-*/
-    @Override
-    public int getItemCount() {
-        return mBannerList.size();
-    }
+   @Override
+   public void onBindViewHolder( @NonNull RecyclerView.ViewHolder viewHolder, int position ) {
+      Category.Courses aCourses = mCourseList.get( position );
+      if( viewHolder.getItemViewType() == LAYOUT_ONE ) {
+      } else {
+         ViewHolder vaultItemHolder = ( ViewHolder ) viewHolder;
+         Picasso.with( mContext ).load( aCourses.course_image ).
+                 placeholder( R.drawable.yoga_benefit ).into( vaultItemHolder.mImageView );
 
-    @Override
-    public int getItemViewType(int position) {
-        if (mPosition == 0)
-            return LAYOUT_ONE;
-        else
-            return LAYOUT_TWO;
-    }
+      }
+   }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+   @Override
+   public int getItemCount() {
+      return mCourseList.size();
+   }
 
-        ImageView mImageView;
+   @Override
+   public int getItemViewType( int position ) {
+     // if( mPosition == 0 )
+       //  return LAYOUT_ONE;
+    //  else
+         return LAYOUT_TWO;
+   }
 
-        LinearLayout mCategoryLayout;
+   public class ViewHolder extends RecyclerView.ViewHolder {
 
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
+      ImageView mImageView;
+      LinearLayout mCategoryLayout;
 
-            mImageView = itemView.findViewById(R.id.horizontal_image);
-            mCategoryLayout = itemView.findViewById(R.id.category_layout);
-        }
-    }
+      ViewHolder( @NonNull View itemView ) {
+         super( itemView );
 
-    public class ViewHolderOne extends RecyclerView.ViewHolder {
+         mImageView = itemView.findViewById( R.id.horizontal_image );
+         mCategoryLayout = itemView.findViewById( R.id.category_layout );
+      }
+   }
 
-        LinearLayout mDailyYogaLayout;
+   public class ViewHolderOne extends RecyclerView.ViewHolder {
 
-        public ViewHolderOne(View itemView) {
-            super(itemView);
-            mDailyYogaLayout = itemView.findViewById(R.id.daily_yoga_layout);
-        }
-    }
+      LinearLayout mDailyYogaLayout;
+
+      ViewHolderOne( View itemView ) {
+         super( itemView );
+         mDailyYogaLayout = itemView.findViewById( R.id.daily_yoga_layout );
+      }
+   }
 
 }

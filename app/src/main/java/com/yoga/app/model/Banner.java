@@ -8,4 +8,5 @@ public class Banner implements Serializable {
     public String banner_title = "";
     public String banner_file_type = "";
     public String banner_file = "";
+    public String banner_thumbnail = "";
 }

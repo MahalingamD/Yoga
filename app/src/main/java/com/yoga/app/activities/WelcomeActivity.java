@@ -130,7 +130,7 @@ public class WelcomeActivity extends ActivityManagePermission implements Permiss
 
     }
 
-    private void setDefaultTab() {
+    public void setDefaultTab() {
         TabLayout.Tab currentTab = mTabLayout.getTabAt(0);
         if (currentTab != null) {
             View customView = currentTab.getCustomView();

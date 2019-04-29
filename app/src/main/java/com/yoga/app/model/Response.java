@@ -7,45 +7,43 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Awesome Pojo Generator
- */
+
 public class Response {
-    @SerializedName("data")
-    @Expose
-    private Data data;
+   @SerializedName("data")
+   @Expose
+   private Data data;
 
-    @SerializedName("success")
-    @Expose
-    private Integer success;
+   @SerializedName("success")
+   @Expose
+   private Integer success;
 
-    @SerializedName("message")
-    @Expose
-    private String message;
+   @SerializedName("message")
+   @Expose
+   private String message;
 
-    public String getMessage() {
-        return message;
-    }
+   public String getMessage() {
+      return message;
+   }
 
-    public void setMessage(String message) {
-        this.message = message;
-    }
+   public void setMessage( String message ) {
+      this.message = message;
+   }
 
-    public void setData(Data data) {
-        this.data = data;
-    }
+   public void setData( Data data ) {
+      this.data = data;
+   }
 
-    public Data getData() {
-        return data;
-    }
+   public Data getData() {
+      return data;
+   }
 
-    public void setSuccess(Integer success) {
-        this.success = success;
-    }
+   public void setSuccess( Integer success ) {
+      this.success = success;
+   }
 
-    public Integer getSuccess() {
-        return success;
-    }
+   public Integer getSuccess() {
+      return success;
+   }
 
 
 }

@@ -4,117 +4,151 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Awesome Pojo Generator
  */
 public class Data implements Serializable {
-    @SerializedName("access_token")
-    @Expose
-    private String access_token;
-    @SerializedName("token_type")
-    @Expose
-    private String token_type;
-    @SerializedName("expires_in")
-    @Expose
-    private String expires_in;
+   @SerializedName("access_token")
+   @Expose
+   private String access_token;
+   @SerializedName("token_type")
+   @Expose
+   private String token_type;
+   @SerializedName("expires_in")
+   @Expose
+   private String expires_in;
 
-    public void setAccess_token(String access_token) {
-        this.access_token = access_token;
-    }
+   public void setAccess_token( String access_token ) {
+      this.access_token = access_token;
+   }
 
-    public String getAccess_token() {
-        return access_token;
-    }
+   public String getAccess_token() {
+      return access_token;
+   }
 
-    public void setToken_type(String token_type) {
-        this.token_type = token_type;
-    }
+   public void setToken_type( String token_type ) {
+      this.token_type = token_type;
+   }
 
-    public String getToken_type() {
-        return token_type;
-    }
+   public String getToken_type() {
+      return token_type;
+   }
 
-    public void setExpires_in(String expires_in) {
-        this.expires_in = expires_in;
-    }
+   public void setExpires_in( String expires_in ) {
+      this.expires_in = expires_in;
+   }
 
-    public String getExpires_in() {
-        return expires_in;
-    }
+   public String getExpires_in() {
+      return expires_in;
+   }
 
-    @SerializedName("account_id")
-    public String account_id = "";
+   @SerializedName("account_id")
+   public String account_id = "";
 
-    @SerializedName("otp")
-    public String otp = "";
-
-
-    @SerializedName("banner")
-    private List<Banner> mBannerList;
-
-    public List<Banner> getmBannerList() {
-        return mBannerList;
-    }
-
-    public void setmBannerList(List<Banner> mBannerList) {
-        this.mBannerList = mBannerList;
-    }
+   @SerializedName("otp")
+   public String otp = "";
 
 
-    @SerializedName("daily_quotes")
-    private DailyQuotes mDailyQuotes;
+   @SerializedName("banner")
+   private List<Banner> mBannerList;
 
-    public DailyQuotes getDailyQuotes() {
-        return mDailyQuotes;
-    }
+   public List<Banner> getmBannerList() {
+      return mBannerList;
+   }
 
-    public void setDailyQuotes(DailyQuotes mDailyQuotes) {
-        this.mDailyQuotes = mDailyQuotes;
-    }
+   public void setmBannerList( List<Banner> mBannerList ) {
+      this.mBannerList = mBannerList;
+   }
 
-    @SerializedName("gender")
-    private List<Gender> mGenderList;
 
-    public List<Gender> getmGenderList() {
-        return mGenderList;
-    }
+   @SerializedName("daily_quotes")
+   private DailyQuotes mDailyQuotes;
 
-    public void setmGenderList(List<Gender> mGenderList) {
-        this.mGenderList = mGenderList;
-    }
+   public DailyQuotes getDailyQuotes() {
+      return mDailyQuotes;
+   }
 
-    @SerializedName("health_disorder")
-    private List<HealthDisorder> mDisorderList;
+   public void setDailyQuotes( DailyQuotes mDailyQuotes ) {
+      this.mDailyQuotes = mDailyQuotes;
+   }
 
-    public List<HealthDisorder> getmDisorderList() {
-        return mDisorderList;
-    }
+   @SerializedName("gender")
+   private List<Gender> mGenderList;
 
-    public void setmDisorderList(List<HealthDisorder> mDisorderList) {
-        this.mDisorderList = mDisorderList;
-    }
+   public List<Gender> getmGenderList() {
+      return mGenderList;
+   }
 
-    @SerializedName("profession")
-    private List<Profession> mProfessionList;
+   public void setmGenderList( List<Gender> mGenderList ) {
+      this.mGenderList = mGenderList;
+   }
 
-    public List<Profession> getmProfessionList() {
-        return mProfessionList;
-    }
+   @SerializedName("health_disorder")
+   private List<HealthDisorder> mDisorderList;
 
-    public void setmProfessionList(List<Profession> mProfessionList) {
-        this.mProfessionList = mProfessionList;
-    }
+   public List<HealthDisorder> getmDisorderList() {
+      return mDisorderList;
+   }
 
-    @SerializedName("country")
-    private List<Country> mCountryList;
+   public void setmDisorderList( List<HealthDisorder> mDisorderList ) {
+      this.mDisorderList = mDisorderList;
+   }
 
-    public List<Country> getmCountryList() {
-        return mCountryList;
-    }
+   @SerializedName("profession")
+   private List<Profession> mProfessionList;
 
-    public void setmCountryList(List<Country> mCountryList) {
-        this.mCountryList = mCountryList;
-    }
+   public List<Profession> getmProfessionList() {
+      return mProfessionList;
+   }
+
+   public void setmProfessionList( List<Profession> mProfessionList ) {
+      this.mProfessionList = mProfessionList;
+   }
+
+   @SerializedName("country")
+   private List<Country> mCountryList;
+
+   public List<Country> getmCountryList() {
+      return mCountryList;
+   }
+
+   public void setmCountryList( List<Country> mCountryList ) {
+      this.mCountryList = mCountryList;
+   }
+
+   @SerializedName("pages")
+   private Pages mPages;
+
+   public Pages getmPages() {
+      return mPages;
+   }
+
+   public void setmPages( Pages mPages ) {
+      this.mPages = mPages;
+   }
+
+   @SerializedName("benefits_of_yoga")
+   private YogaBenefits mBenefits;
+
+   public YogaBenefits getmBenefits() {
+      return mBenefits;
+   }
+
+   public void setmBenefits( YogaBenefits mBenefits ) {
+      this.mBenefits = mBenefits;
+   }
+
+   @SerializedName("category")
+   private ArrayList<Category> mCategoryArrayList;
+
+   public ArrayList<Category> getmCategoryArrayList() {
+      return mCategoryArrayList;
+   }
+
+   public void setmCategoryArrayList( ArrayList<Category> mCategoryArrayList ) {
+      this.mCategoryArrayList = mCategoryArrayList;
+   }
 }

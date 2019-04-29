@@ -25,4 +25,7 @@ public interface YogaAPI {
     @POST("register")
     Call<Response> PutRegisterAPI(@QueryMap Map<String, String> params);
 
+    @POST("verify_otp")
+    Call<Response> getVerifyOTP(@QueryMap Map<String, String> params);
+
 }
