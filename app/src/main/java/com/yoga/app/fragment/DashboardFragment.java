@@ -15,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.yoga.app.R;
-import com.yoga.app.activities.CourseActivity;
 import com.yoga.app.activities.MainActivity;
 import com.yoga.app.adapter.DashboardVerticalAdapter;
 import com.yoga.app.adapter.ViewpagerAdapter;
@@ -86,8 +85,9 @@ public class DashboardFragment extends Fragment {
         for (int i = 1; i <=5; i++) {
             aDashBoardHeading.add("Heading " + i);
         }
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
-        mDashboardVerticalAdapter = new DashboardVerticalAdapter(getActivity(), aDashBoardHeading,mBannerList);
+        mDashboardVerticalAdapter = new DashboardVerticalAdapter(getActivity(), aDashBoardHeading, mBannerList);
         mRecyclerView.setAdapter(mDashboardVerticalAdapter);
         mDashboardVerticalAdapter.notifyDataSetChanged();
     }
@@ -100,13 +100,6 @@ public class DashboardFragment extends Fragment {
         viewPager.setStopScrollWhenTouch(true);
         mAdapter = new ViewpagerAdapter(getActivity(), mBannerList);
         viewPager.setAdapter(mAdapter);
-
-        /*viewPager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CourseActivity.class));
-            }
-        });*/
     }
 
     @Override
@@ -132,14 +125,16 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Response> call, @NotNull retrofit2.Response<Response> response) {
                 aProgressDialog.dismiss();
-                Response data = response.body();
-                if (data != null) {
-                    if (data.getSuccess() == 1) {
-                        mBannerList = data.getData().getmBannerList();
-                        // Log.d("Length", "" + aBannerList.size());
+                if (response != null) {
+                    Response data = response.body();
+                    if (data != null) {
+                        if (data.getSuccess() == 1) {
+                            mBannerList = data.getData().getmBannerList();
+                            // Log.d("Length", "" + aBannerList.size());
 
-                        mAdapter.updateAdapter((ArrayList<Banner>) mBannerList);
-                        mDashboardVerticalAdapter.updateAdapter(mBannerList);
+                            mAdapter.updateAdapter((ArrayList<Banner>) mBannerList);
+                            mDashboardVerticalAdapter.updateAdapter(mBannerList);
+                        }
                     }
                 }
             }

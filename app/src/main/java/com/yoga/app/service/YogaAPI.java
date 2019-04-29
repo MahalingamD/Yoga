@@ -19,4 +19,10 @@ public interface YogaAPI {
     @GET("dashboard")
     Call<Response> DashboardAPI(@HeaderMap Map<String, String> aHeader);
 
+    @GET("register")
+    Call<Response> RegisterAPI(@HeaderMap Map<String, String> aHeader);
+
+    @POST("register")
+    Call<Response> PutRegisterAPI(@QueryMap Map<String, String> params);
+
 }

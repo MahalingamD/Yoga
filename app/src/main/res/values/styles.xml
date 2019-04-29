@@ -10,7 +10,7 @@
     </style>
 
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">@color/colorAccent</item>
+        <item name="boxStrokeColor">@color/login_red_light</item>
         <item name="boxStrokeWidth">2dp</item>
         <item name="android:layout_marginTop">@dimen/margin_10</item>
         <item name="android:textColorHint">@color/dark_grey</item>
