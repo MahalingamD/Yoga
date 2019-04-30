@@ -1,7 +1,5 @@
 package com.yoga.app.videoplayer;
 
-import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.Window;
@@ -46,9 +43,6 @@ import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 import com.yoga.app.R;
 
-
-import java.util.ArrayList;
-
 /**
  * Created by Gowtham on 28-02-2019.
  */
@@ -60,7 +54,10 @@ public class VideoPlayerActivity extends AppCompatActivity implements Player.Eve
     private static final String KEY_VIDEO_POSITION = "Video_List";
     private static final String KEY_VIDEO_ID = "Video_ID";
     private static final String KEY_VIDEO_ARRAY = "Video_Array";
-
+    //  AppDatabase mAppDatabase;
+    View nextButton;
+    Timeline.Window window;
+    DefaultTimeBar exoProgress;
     private PlayerView mVideoFullScreenPlayer;
     private ProgressBar mSpinnerVideoDetails;
     private AppCompatButton mPlayBTN;
@@ -76,10 +73,6 @@ public class VideoPlayerActivity extends AppCompatActivity implements Player.Eve
     private Runnable mRunnable;
     private int mPosition;
     private String mVideoID;
-    //  AppDatabase mAppDatabase;
-    View nextButton;
-    Timeline.Window window;
-    DefaultTimeBar exoProgress;
 
    /* public static Intent getStartIntent(Context context, int aPosition, String id, ArrayList<ReturnValues.VideoDetails> mVideoDetailsList) {
         Intent intent = new Intent(context, VideoPlayerActivity.class);
@@ -153,8 +146,8 @@ public class VideoPlayerActivity extends AppCompatActivity implements Player.Eve
 
     private void loadValues() {
 
-  //      mTitleTXT.setText(aVideoDetails.title);
-    //    mDescriptionTXT.setText(aVideoDetails.description);
+        //      mTitleTXT.setText(aVideoDetails.title);
+        //    mDescriptionTXT.setText(aVideoDetails.description);
     }
 
     private void setUp() {

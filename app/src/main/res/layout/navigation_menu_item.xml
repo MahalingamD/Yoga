@@ -44,9 +44,9 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_10"
         android:background="@color/divider_color"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/margin_10"/>
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/condition_view"
