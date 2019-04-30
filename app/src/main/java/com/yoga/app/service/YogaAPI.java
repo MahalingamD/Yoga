@@ -1,5 +1,6 @@
 package com.yoga.app.service;
 
+import com.yoga.app.model.CourseList;
 import com.yoga.app.model.Response;
 
 import java.util.Map;
@@ -27,5 +28,8 @@ public interface YogaAPI {
 
     @POST("verify_otp")
     Call<Response> getVerifyOTP(@QueryMap Map<String, String> params);
+
+    @GET("courses")
+    Call<CourseList> getCourseList(@QueryMap Map<String, String> params);
 
 }

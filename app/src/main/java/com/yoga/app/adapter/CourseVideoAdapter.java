@@ -38,7 +38,7 @@ public class CourseVideoAdapter extends RecyclerView.Adapter<CourseVideoAdapter.
     @Override
     public void onBindViewHolder(@NonNull CourseVideoAdapter.ViewHolder viewHolder, final int i) {
 
-        CourseVideos courseVideos = mCourseVideosArrayList.get(i);
+        final CourseVideos courseVideos = mCourseVideosArrayList.get(i);
 
         viewHolder.titleTXT.setText(courseVideos.getTitle());
         viewHolder.durationTXT.setText(courseVideos.getMin());
@@ -49,6 +49,7 @@ public class CourseVideoAdapter extends RecyclerView.Adapter<CourseVideoAdapter.
             @Override
             public void onClick(View view) {
                 //TODO
+                mCallback.click(i, courseVideos.getTitle());
             }
         });
 
@@ -73,7 +74,7 @@ public class CourseVideoAdapter extends RecyclerView.Adapter<CourseVideoAdapter.
         ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            parent = itemView.findViewById(R.id.course_list_parent_lay);
+            parent = itemView.findViewById(R.id.main_course_lay);
             titleTXT = itemView.findViewById(R.id.course_list_title_txt);
             durationTXT = itemView.findViewById(R.id.course_list_duration_txt);
             thumpnail = itemView.findViewById(R.id.course_list_image);
