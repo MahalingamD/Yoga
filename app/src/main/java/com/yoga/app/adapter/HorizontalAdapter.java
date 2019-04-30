@@ -51,7 +51,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       if( viewType == LAYOUT_ONE ) {
          view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.one, parent, false );
          ViewGroup.LayoutParams params = view.getLayoutParams();
-         params.width = ( int ) ( width * 0.8 );
+         params.width = ( int ) ( width * 0.9 );
          view.setLayoutParams( params );
 
          viewHolder = new ViewHolderOne( view );
@@ -59,7 +59,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
          view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.dashboard_horizontal_layout, parent, false );
 
          ViewGroup.LayoutParams params = view.getLayoutParams();
-         params.width = ( int ) ( width * 0.8 );
+         params.width = ( int ) ( width * 0.9 );
          view.setLayoutParams( params );
 
          viewHolder = new ViewHolder( view );
@@ -98,13 +98,13 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
    public class ViewHolder extends RecyclerView.ViewHolder {
 
       ImageView mImageView;
-      LinearLayout mCategoryLayout;
+     // LinearLayout mCategoryLayout;
 
       ViewHolder( @NonNull View itemView ) {
          super( itemView );
 
          mImageView = itemView.findViewById( R.id.horizontal_image );
-         mCategoryLayout = itemView.findViewById( R.id.category_layout );
+       //  mCategoryLayout = itemView.findViewById( R.id.category_layout );
       }
    }
 

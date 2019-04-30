@@ -29,7 +29,8 @@
                 android:layout_height="48dp"
                 android:layout_marginEnd="@dimen/margin_5"
                 android:layout_toStartOf="@+id/main_profile"
-                android:src="@drawable/ic_search" />
+                android:src="@drawable/ic_search"
+                android:visibility="gone" />
 
 
             <ImageView

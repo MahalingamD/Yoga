@@ -68,4 +68,14 @@ public class YogaHelper {
       alertDialog.show();
    }
 
+   /**
+    * Px to DP
+    *
+    * @param context Context
+    * @param dp      float
+    */
+   public static int pxFromDp(final Context context, final float dp) {
+      return (int) (dp * context.getResources().getDisplayMetrics().density);
+   }
+
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,12 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <com.yoga.app.utils.viewpager.AutoScrollViewPager
                 android:id="@+id/auto_scroll_viewPager"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="180dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,82 +33,102 @@
                 android:orientation="horizontal"
                 android:weightSum="3">
 
-                <RelativeLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_5"
-                    android:layout_weight="1">
+                    android:layout_margin="@dimen/margin_5"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/margin_5">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/beginer" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:gravity="center"
-                        android:padding="@dimen/margin_5"
-                        android:text="@string/label_begginer_n_video"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_14" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/beginer" />
 
-                </RelativeLayout>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:padding="@dimen/margin_5"
+                            android:text="@string/label_begginer_n_video"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_14" />
 
-                <RelativeLayout
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_5"
-                    android:layout_marginRight="@dimen/margin_5"
-                    android:layout_weight="1">
+                    android:layout_margin="@dimen/margin_5"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/margin_5">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/beginer" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:gravity="center"
-                        android:padding="@dimen/margin_5"
-                        android:text="@string/label_testimonials_n_videos"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_14" />
-                </RelativeLayout>
+                        android:layout_weight="1">
 
-                <RelativeLayout
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/beginer" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:padding="@dimen/margin_5"
+                            android:text="@string/label_testimonials_n_videos"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_14" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/margin_5"
-                    android:layout_weight="1">
+                    android:layout_margin="@dimen/margin_5"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="@dimen/margin_5">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/beginer" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:gravity="center"
-                        android:padding="@dimen/margin_5"
-                        android:text="@string/label_yoga_n_poses"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_14" />
-                </RelativeLayout>
+
+                        android:layout_weight="1">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="100dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/beginer" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:gravity="center"
+                            android:padding="@dimen/margin_5"
+                            android:text="@string/label_yoga_n_poses"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_14" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 
@@ -135,18 +156,26 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/login_red_light">
+                    android:background="@color/white">
 
-                    <TextView
-                        android:id="@+id/quotes_msg"
+                    <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/gilroy_bold"
-                        android:padding="@dimen/margin_16"
-                        android:text="Morning yoga"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/font_16" />
+                        android:layout_margin="@dimen/margin_5"
+                        app:cardBackgroundColor="@color/login_red_light"
+                        app:cardElevation="@dimen/margin_2">
+
+                        <TextView
+                            android:id="@+id/quotes_msg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/gilroy_bold"
+                            android:padding="@dimen/margin_16"
+                            android:text="Morning yoga"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/font_16" />
+                    </android.support.v7.widget.CardView>
                 </LinearLayout>
 
             </LinearLayout>
@@ -155,6 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/margin_5"
+                android:background="@color/white"
                 android:orientation="vertical">
 
                 <TextView
@@ -169,31 +199,39 @@
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_18" />
 
-                <RelativeLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="180dp">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/margin_5"
+                    app:cardCornerRadius="@dimen/margin_5"
+                    app:cardElevation="@dimen/margin_2">
 
-                    <ImageView
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/ic_yoga_benefits" />
+                        android:layout_height="180dp">
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@color/color_45" />
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/ic_yoga_benefits" />
 
-                    <TextView
-                        android:id="@+id/benefit_message"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/gilroy_regular"
-                        android:padding="@dimen/margin_16"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/margin_16" />
-                </RelativeLayout>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/color_45" />
+
+                        <TextView
+                            android:id="@+id/benefit_message"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:fontFamily="@font/gilroy_regular"
+                            android:padding="@dimen/margin_16"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/margin_16" />
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
 
             </LinearLayout>
 

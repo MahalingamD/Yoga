@@ -64,6 +64,7 @@ public class DashboardFragment extends Fragment {
    private TextView mBenefitMsg;
    private TextView mYogaTitle, mYogaHour, mYogaTime;
    LinearLayout mDashboardLayout;
+   private int myPadding=20;
 
 
    @Override
@@ -120,6 +121,12 @@ public class DashboardFragment extends Fragment {
       viewPager.setStopScrollWhenTouch( true );
       mAdapter = new ViewpagerAdapter( getActivity(), mBannerList );
       viewPager.setAdapter( mAdapter );
+
+      viewPager.setClipToPadding(false);
+      // set padding manually, the more you set the padding the more you see of prev & next page
+      viewPager.setPadding(YogaHelper.pxFromDp(getActivity(), myPadding), 0, YogaHelper.pxFromDp(getActivity(), myPadding), 0);
+      // sets a margin b/w individual pages to ensure that there is a gap b/w them
+      viewPager.setPageMargin(myPadding);
    }
 
    @Override

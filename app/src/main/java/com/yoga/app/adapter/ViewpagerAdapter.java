@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,16 @@ public class ViewpagerAdapter extends PagerAdapter {
    public Object instantiateItem( ViewGroup container, int position ) {
       LayoutInflater inflater = ( ( Activity ) activity ).getLayoutInflater();
       View viewItem = inflater.inflate( R.layout.pager_item, container, false );
+
+      DisplayMetrics displayMetrics = new DisplayMetrics();
+      activity.getWindowManager().getDefaultDisplay().getMetrics( displayMetrics );
+      int height = displayMetrics.heightPixels;
+      int width = displayMetrics.widthPixels;
+
+      ViewGroup.LayoutParams params = viewItem.getLayoutParams();
+      params.width = ( int ) ( width * 0.9 );
+      viewItem.setLayoutParams( params );
+
 
       ImageView imageView = viewItem.findViewById( R.id.pager_image );
       // mBannerList.get(position)
