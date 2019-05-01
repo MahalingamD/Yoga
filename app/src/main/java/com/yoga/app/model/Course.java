@@ -1,8 +1,12 @@
 package com.yoga.app.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Course {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Course implements Serializable {
 
 	@SerializedName("course_desc_benefits")
 	private String courseDescBenefits;
@@ -27,6 +31,18 @@ public class Course {
 
 	@SerializedName("course_desc_about")
 	private String courseDescAbout;
+
+	@SerializedName("course_videos")
+	@Expose
+	private ArrayList<Course_videos> course_videos;
+
+	public void setCourse_videos(ArrayList<Course_videos> course_videos) {
+		this.course_videos = course_videos;
+	}
+
+	public ArrayList<Course_videos> getCourse_videos() {
+		return course_videos;
+	}
 
 	public void setCourseDescBenefits(String courseDescBenefits){
 		this.courseDescBenefits = courseDescBenefits;

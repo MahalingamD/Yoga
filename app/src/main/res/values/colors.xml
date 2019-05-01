@@ -33,5 +33,6 @@
     <color name="common_bg_color">#F0F0F0</color>
 
     <color name="recyclerView_background">#F0F1F3</color>
+    <color name="green">#00c853</color>
 
 </resources>

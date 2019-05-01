@@ -103,7 +103,7 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
         Map<String, String> aHeaderMap = new HashMap<>();
 
         aHeaderMap.put("X-Device", YogaHelper.aDeviceId(getActivity()));
-        aHeaderMap.put("X-Localization", "en");
+        //aHeaderMap.put("X-Localization", "en");
         aHeaderMap.put("Authorization", "Bearer " + Prefs.getString(ACCESS_TOKEN, ""));
 
         myRetrofitInstance.getAPI().getCourseList(aHeaderMap).enqueue(new Callback<CourseList>() {

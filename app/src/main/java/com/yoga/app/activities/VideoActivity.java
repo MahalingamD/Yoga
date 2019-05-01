@@ -6,10 +6,8 @@ import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import com.google.android.exoplayer2.C;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.DefaultRenderersFactory;
 import com.google.android.exoplayer2.ExoPlaybackException;
@@ -49,7 +46,9 @@ import com.google.android.exoplayer2.util.Util;
 import com.wang.avi.AVLoadingIndicatorView;
 import com.yoga.app.R;
 import com.yoga.app.adapter.CourseVideoAdapter;
-import com.yoga.app.model.CourseVideos;
+import com.yoga.app.model.Course;
+import com.yoga.app.model.Course_videos;
+import com.yoga.app.utils.KToast;
 import com.yoga.app.utils.VideoPlayerConfig;
 
 import java.util.ArrayList;
@@ -62,47 +61,23 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
     private static final String KEY_VIDEO_POSITION = "Video_List";
     private static final String KEY_VIDEO_ID = "Video_ID";
     private static final String KEY_VIDEO_ARRAY = "Video_Array";
-    //AppDatabase mAppDatabase;
-    View nextButton;
     Timeline.Window window;
     DefaultTimeBar exoProgress;
-    String[] thump = new String[]{"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerBlazes.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerEscapes.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerFun.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerJoyrides.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ForBiggerMeltdowns.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/Sintel.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/SubaruOutbackOnStreetAndDirt.jpg",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/TearsOfSteel.jpg"};
-    String[] video = new String[]{"http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4",
-            "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4"};
     private PlayerView mVideoFullScreenPlayer;
     private AVLoadingIndicatorView mSpinnerVideoDetails;
-    private AppCompatButton mPlayBTN;
     private RecyclerView mRelatedList;
     private CourseVideoAdapter mAdapter;
-    private ArrayList<CourseVideos> mVideoArrayList = new ArrayList<>();
-    private ArrayList<CourseVideos> mRemovedVideoArrayList = new ArrayList<>();
+    private ArrayList<Course_videos> mVideoArrayList = new ArrayList<>();
+    //private ArrayList<Course_videos> mRemovedVideoArrayList = new ArrayList<>();
     private AppCompatTextView mTitleTXT, mDescriptionTXT;
     private Uri videoUri;
     private SimpleExoPlayer player;
-    private Handler mHandler;
-    private Runnable mRunnable;
-    private int mPosition;
+    private int mPosition = 0;
     private int mVideoID = 1;
     private ImageView changeOrientation;
+    Course course;
 
-    public static Intent getStartIntent(Context context, int aPosition, int id, ArrayList<CourseVideos> mVideoDetailsList) {
+    public static Intent getStartIntent(Context context, int aPosition, int id, ArrayList<Course_videos> mVideoDetailsList) {
         Intent intent = new Intent(context, VideoActivity.class);
         intent.putExtra(KEY_VIDEO_POSITION, aPosition);
         intent.putExtra(KEY_VIDEO_ID, id);
@@ -119,61 +94,37 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_video);
 
-        //mAppDatabase = AppDatabase.getDatabase(this);
+        intentvalue();
         init();
-        loadDummyData();
         listeners();
-
-        /*if (getIntent().hasExtra(KEY_VIDEO_POSITION) && getIntent().hasExtra(KEY_VIDEO_ARRAY)) {
-            mPosition = getIntent().getIntExtra(KEY_VIDEO_POSITION, 0);
-            mVideoID = getIntent().getStringExtra(KEY_VIDEO_ID);
-            mVideoArrayList = (ArrayList<CourseVideos>) getIntent().getSerializableExtra(KEY_VIDEO_ARRAY);
-            for (CourseVideos aVideoDetails : mVideoArrayList) {
-                if (aVideoDetails.id.equals(mVideoID))
-                    videoUri = Uri.parse(aVideoDetails.url);
-            }
-            //videoUri = Uri.parse(mVideoArrayList.get(mPosition).url);
-        }*/
-
-        /*if (mAppDatabase.aVideoDao().getVideoDurationEmpty().size() == 0) {
-            for (int i = 0; i < mVideoArrayList.size(); i++) {
-                CourseVideos aVideoDetailList = mVideoArrayList.get(i);
-
-                VideoDetail aVideoDetail = new VideoDetail();
-
-                aVideoDetail.id = aVideoDetailList.id;
-                aVideoDetail.duration = "0";
-
-                mVideoDetailList.add(aVideoDetail);
-            }
-            mAppDatabase.aVideoDao().insertVideoDuration(mVideoDetailList);
-        }*/
-
-        videoUri = Uri.parse(mVideoArrayList.get(0).video_url);
-
+        videoUri = Uri.parse(mVideoArrayList.get(mPosition).getCvideo_video());
         setUp();
         setupRecyclerView();
         loadValues();
+    }
+
+    private void intentvalue() {
+        course = (Course) getIntent().getSerializableExtra("course");
+        mPosition = getIntent().getIntExtra("position", 0);
+        if (course != null)
+            mVideoArrayList = course.getCourse_videos();
     }
 
     private void init() {
         mVideoFullScreenPlayer = findViewById(R.id.videoFullScreenPlayer);
         mSpinnerVideoDetails = findViewById(R.id.spinnerVideoDetails);
 
-        mPlayBTN = findViewById(R.id.activity_video_detail_play_BTN);
         mRelatedList = findViewById(R.id.activity_video_detail_related_list);
         exoProgress = findViewById(R.id.exo_progress);
         changeOrientation = findViewById(R.id.change_orientation_IMG);
 
         exoProgress.setEnabled(false);
         exoProgress.setClickable(false);
-        //nextButton = findViewById(R.id.exo_next);
 
         mTitleTXT = findViewById(R.id.activity_video_detail_title);
         mDescriptionTXT = findViewById(R.id.activity_video_detail_description);
 
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
-        //getSupportActionBar().hide();
     }
 
     private void listeners() {
@@ -195,20 +146,6 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
-        }
-    }
-
-    private void loadDummyData() {
-        for (int i = 0; i < 10; i++) {
-            CourseVideos courseVideos = new CourseVideos();
-            courseVideos.setId(1);
-            courseVideos.setTitle("Title " + (i + 1));
-            courseVideos.setDescription("Description " + (i + 1));
-            courseVideos.setMin((i + 1) + " min");
-            courseVideos.setPaid(true);
-            courseVideos.setThumnail_url(thump[i]);
-            courseVideos.setVideo_url(video[i]);
-            mVideoArrayList.add(courseVideos);
         }
     }
 
@@ -237,24 +174,24 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
         mRelatedList.setHasFixedSize(true);
 
         //remove current position
-        mRemovedVideoArrayList.addAll(mVideoArrayList);
-        for (CourseVideos aVideoDetails : mVideoArrayList) {
-            if (aVideoDetails.getId() == mVideoID)
+       /* mRemovedVideoArrayList.addAll(mVideoArrayList);
+        for (Course_videos aVideoDetails : mVideoArrayList) {
+            if (aVideoDetails.getCvideo_id() == mVideoID)
                 mRemovedVideoArrayList.remove(aVideoDetails);
-
-        }
+        }*/
 
         mAdapter = new CourseVideoAdapter(this, mVideoArrayList, this);
         mRelatedList.setAdapter(mAdapter);
     }
 
     private void loadValues() {
-        for (CourseVideos aVideoDetails : mVideoArrayList) {
-            if (aVideoDetails.getId() == mVideoID) {
-                mTitleTXT.setText(aVideoDetails.title);
-                mDescriptionTXT.setText(aVideoDetails.description);
+        /*for (Course_videos aVideoDetails : mVideoArrayList) {
+            if (aVideoDetails.getCvideo_id() == mVideoID) {
+                mTitleTXT.setText(aVideoDetails.getCvideo_desc_title());
+                mDescriptionTXT.setText(aVideoDetails.getCvideo_desc_title());
             }
-        }
+        }*/
+        mTitleTXT.setText(mVideoArrayList.get(mPosition).getCvideo_desc_title());
     }
 
     private void setUp() {
@@ -303,23 +240,16 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
 
         ConcatenatingMediaSource concatenatedSource = new ConcatenatingMediaSource();
 
-        for (CourseVideos aVideoDetail : mVideoArrayList) {
-
-            Uri aUri = Uri.parse(aVideoDetail.getVideo_url());
-
-            MediaSource aVideoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
-                    .createMediaSource(aUri);
-
-            concatenatedSource.addMediaSource(aVideoSource);
-
+        for (Course_videos aVideoDetail : mVideoArrayList) {
+            if (aVideoDetail.getCvideo_is_free() == 1) {
+                Uri aUri = Uri.parse(aVideoDetail.getCvideo_video());
+                MediaSource aVideoSource = new ExtractorMediaSource.Factory(dataSourceFactory)
+                        .createMediaSource(aUri);
+                concatenatedSource.addMediaSource(aVideoSource);
+            }
         }
-
         player.prepare(concatenatedSource);
-
-        //automatically seek to previous position
-        /*VideoDetail sss = (mAppDatabase.aVideoDao().getVideoDuration(mVideoArrayList.get(mPosition).id));
-        long along = Long.parseLong(sss.duration);
-        player.seekTo(along);*/
+        player.seekTo(mPosition, 0);
 
     }
 
@@ -334,13 +264,6 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
         if (player != null) {
             player.setPlayWhenReady(false);
             player.getPlaybackState();
-            /*if (player.getCurrentPosition() > 0) {
-                VideoDetail aVideoDetail = new VideoDetail();
-                aVideoDetail.id = mVideoArrayList.get(mPosition).id;
-                aVideoDetail.duration = String.valueOf(player.getCurrentPosition());
-
-                //mAppDatabase.aVideoDao().update(mVideoArrayList.get(mPosition).id, String.valueOf(player.getCurrentPosition()));
-            }*/
         }
     }
 
@@ -355,9 +278,6 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
     protected void onPause() {
         super.onPause();
         pausePlayer();
-        if (mRunnable != null) {
-            mHandler.removeCallbacks(mRunnable);
-        }
     }
 
     @Override
@@ -398,11 +318,11 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
             case Player.STATE_ENDED:
                 // Activate the force enable
                 //mAppDatabase.aVideoDao().update(mVideoID, "0");
-                if (mPosition < mVideoArrayList.size() - 1) {
+                /*if (mPosition < mVideoArrayList.size() - 1) {
                     ((VideoActivity) this).finish();
-                    startActivity(VideoActivity.getStartIntent(this, mPosition + 1, mVideoArrayList.get(mPosition + 1).id, mVideoArrayList));
+                    startActivity(VideoActivity.getStartIntent(this, mPosition + 1, mVideoArrayList.get(mPosition + 1).getCvideo_id(), mVideoArrayList));
                 } else
-                    finish();
+                    finish();*/
                 break;
             case Player.STATE_IDLE:
 
@@ -414,19 +334,6 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
             default:
                 // status = PlaybackStatus.IDLE;
                 break;
-        }
-    }
-
-    private void next() {
-        Timeline timeline = player.getCurrentTimeline();
-        if (timeline.isEmpty()) {
-            return;
-        }
-        int windowIndex = player.getCurrentWindowIndex();
-        if (windowIndex < timeline.getWindowCount() - 1) {
-            player.seekTo(windowIndex + 1, C.TIME_UNSET);
-        } else if (timeline.getWindow(windowIndex, window, false).isDynamic) {
-            player.seekTo(windowIndex, C.TIME_UNSET);
         }
     }
 
@@ -447,7 +354,8 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
 
     @Override
     public void onPositionDiscontinuity(int reason) {
-
+        mPosition = player.getCurrentWindowIndex();
+        loadValues();
     }
 
     @Override
@@ -460,10 +368,25 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
 
     }
 
-
     @Override
     public void click(int aPostion, String s) {
+        if (aPostion == mPosition)
+            return;
+        if (mVideoArrayList.get(aPostion).getCvideo_is_free() == 1) {
+            player.seekTo(aPostion, 0);
+        } else {
+            KToast.errorToast(VideoActivity.this, "This is an premium video, Need to purchase this course for play...");
+        }
+    }
 
+    @Override
+    public void onBackPressed() {
+        int orientation = VideoActivity.this.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        } else {
+            super.onBackPressed();
+        }
     }
 }
 
