@@ -9,11 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yoga.app.R;
-import com.yoga.app.model.Banner;
 import com.yoga.app.model.Category;
 
 import java.util.ArrayList;
@@ -48,14 +46,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       int height = displayMetrics.heightPixels;
       int width = displayMetrics.widthPixels;
 
-      if( viewType == LAYOUT_ONE ) {
-         view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.one, parent, false );
-         ViewGroup.LayoutParams params = view.getLayoutParams();
-         params.width = ( int ) ( width * 0.9 );
-         view.setLayoutParams( params );
 
-         viewHolder = new ViewHolderOne( view );
-      } else {
          view = LayoutInflater.from( parent.getContext() ).inflate( R.layout.dashboard_horizontal_layout, parent, false );
 
          ViewGroup.LayoutParams params = view.getLayoutParams();
@@ -63,7 +54,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
          view.setLayoutParams( params );
 
          viewHolder = new ViewHolder( view );
-      }
+
 
 
       return viewHolder;
@@ -77,7 +68,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
       } else {
          ViewHolder vaultItemHolder = ( ViewHolder ) viewHolder;
          Picasso.with( mContext ).load( aCourses.course_image ).
-                 placeholder( R.drawable.yoga_benefit ).into( vaultItemHolder.mImageView );
+                 placeholder( R.drawable.yoga_benefit ).fit().into( vaultItemHolder.mImageView );
 
       }
    }

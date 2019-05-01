@@ -51,6 +51,9 @@ public class WelcomeActivity extends ActivityManagePermission implements Permiss
 
         mContext = this;
 
+
+
+
         setupViewPager(mViewPager);
         mTabLayout.setupWithViewPager(mViewPager);
         setupTabIcons();
