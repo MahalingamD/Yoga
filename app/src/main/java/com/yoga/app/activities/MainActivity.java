@@ -1,6 +1,5 @@
 package com.yoga.app.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     private void DefaultFragment() {
         mFragmentManager.clearAllFragments();
-        mFragmentManager.updateContent(new DashboardFragment(), "More Fragment", null);
+        mFragmentManager.updateContent(new DashboardFragment(), "Dashboard Fragment", null);
     }
 
     @Override
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         switch (item.getItemId()) {
 
             case R.id.navigation_home:
-                mFragmentManager.updateContent(new DashboardFragment(), "More Fragment", null);
+                mFragmentManager.updateContent(new DashboardFragment(), "Dashboard Fragment", null);
                 break;
 
             case R.id.navigation_course:
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 break;
 
             case R.id.navigation_settings:
-                mFragmentManager.updateContent(new MoreFragment(), "More Fragment", null);
+                mFragmentManager.updateContent(new MoreFragment(), "Settings Fragment", null);
                 break;
 
             case R.id.navigation_more:
@@ -75,5 +74,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }
 
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+            getSupportFragmentManager().popBackStack();
+        else if(mNavigation.getSelectedItemId() == R.id.navigation_home) {
+            finish();
+        }else{
+            mFragmentManager.updateContent(new DashboardFragment(), "Dashboard Fragment", null);
+        }
     }
 }

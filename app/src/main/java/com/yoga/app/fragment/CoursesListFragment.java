@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.yoga.app.R;
 import com.yoga.app.activities.MainActivity;
 import com.yoga.app.adapter.CoursesListAdapter;
+import com.yoga.app.base.APPFragmentManager;
 import com.yoga.app.helper.YogaHelper;
 import com.yoga.app.model.Course;
 import com.yoga.app.model.CourseList;
@@ -47,6 +48,7 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
     ArrayList<Course> mData = new ArrayList();
     ProgressDialog aProgressDialog;
     private RetrofitInstance myRetrofitInstance;
+    APPFragmentManager fragmentManager;
 
     public CoursesListFragment() {
         // Required empty public constructor
@@ -75,15 +77,22 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
         mBannerIMG = view.findViewById(R.id.course_banner_img);
         mRecycle = view.findViewById(R.id.main_course_video_list);
 
+        fragmentManager = new APPFragmentManager(myContext);
+
         if (this.myRetrofitInstance == null) {
             myRetrofitInstance = new RetrofitInstance();
         }
-        //((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).hideToolbar();
 
     }
 
     private void listeners() {
-
+        mBackArrowIMG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentManager.onBackPress();
+            }
+        });
     }
 
     @Override
@@ -93,7 +102,7 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        //((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).hideToolbar();
     }
 
     private void setRecyclerView() {
