@@ -148,7 +148,7 @@ public class DashboardFragment extends Fragment {
             @Override
             public void onResponse(@NotNull Call<Response> call, @NotNull retrofit2.Response<Response> response) {
                 aProgressDialog.dismiss();
-                if (response != null) {
+                if (response.isSuccessful()) {
                     Response data = response.body();
                     if (data != null) {
                         if (data.getSuccess() == 1) {
@@ -172,8 +172,9 @@ public class DashboardFragment extends Fragment {
                                 mQuotesMessage.setText(data.getData().getDailyQuotes().dquote_desc_text);
                             }
                             setBenefit(data.getData().getmBenefits().text, data.getData().getmBenefits().separator);
-                            // mQuotesMessage.setText( data.getData().getmBenefits().text );
 
+                        }else{
+                            YogaHelper.showAlertDialog(getActivity(), data.getError());
                         }
                     } else {
                         YogaHelper.showAlertDialog(getActivity(), "Something went wrong");

@@ -1,5 +1,6 @@
 package com.yoga.app.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.yoga.app.R;
 import com.yoga.app.base.APPFragmentManager;
@@ -20,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     APPFragmentManager mFragmentManager;
 
     Toolbar mToolbar;
+
+    private static long myBackPressed;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +83,37 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() > 0)
+       /* if (getSupportFragmentManager().getBackStackEntryCount() > 0)
             getSupportFragmentManager().popBackStack();
-        else if(mNavigation.getSelectedItemId() == R.id.navigation_home) {
+        else if (mNavigation.getSelectedItemId() == R.id.navigation_home) {
             finish();
-        }else{
+        } else {
             mFragmentManager.updateContent(new DashboardFragment(), "Dashboard Fragment", null);
+        }*/
+
+        int aCount = mFragmentManager.getBackstackCount();
+        if( aCount == 1 ) {
+            exitApp();
+        } else
+            mFragmentManager.onBackPress();
+
+    }
+
+    public void exitApp() {
+        try {
+            if (myBackPressed + 2000 > System.currentTimeMillis()) {
+
+                Intent aIntent = new Intent(Intent.ACTION_MAIN);
+                aIntent.addCategory(Intent.CATEGORY_HOME);
+                aIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(aIntent);
+                finish();
+            } else {
+                Toast.makeText(getBaseContext(), "Press once again to exit!", Toast.LENGTH_SHORT).show();
+                myBackPressed = System.currentTimeMillis();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
