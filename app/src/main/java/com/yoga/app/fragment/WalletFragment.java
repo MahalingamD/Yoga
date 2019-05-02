@@ -15,10 +15,10 @@ import android.widget.TextView;
 
 import com.yoga.app.R;
 import com.yoga.app.activities.MainActivity;
-import com.yoga.app.adapter.CoursesListAdapter;
+import com.yoga.app.adapter.WalletHistoryAdapter;
 import com.yoga.app.helper.YogaHelper;
-import com.yoga.app.model.Course;
-import com.yoga.app.model.CourseList;
+import com.yoga.app.model.Wallet;
+import com.yoga.app.model.WalletHistoryItem;
 import com.yoga.app.service.RetrofitInstance;
 import com.yoga.app.utils.Prefs;
 import com.yoga.app.utils.ProgressDialog;
@@ -37,18 +37,20 @@ import static com.yoga.app.constant.PrefConstants.ACCESS_TOKEN;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CoursesListFragment extends Fragment implements View.OnClickListener, CoursesListAdapter.Callback {
+public class WalletFragment extends Fragment implements View.OnClickListener, WalletHistoryAdapter.Callback {
 
     FragmentActivity myContext;
-    TextView mTitleTXT, mDescTXT;
-    ImageView mBackArrowIMG, mBannerIMG;
+    TextView mTitleTXT, wallet_amount;
+    ImageView mBackArrowIMG;
     RecyclerView mRecycle;
-    CoursesListAdapter mAdapter;
-    ArrayList<Course> mData = new ArrayList();
+    WalletHistoryAdapter mAdapter;
+    ArrayList<WalletHistoryItem> mData = new ArrayList();
     ProgressDialog aProgressDialog;
+    Wallet wallet;
     private RetrofitInstance myRetrofitInstance;
 
-    public CoursesListFragment() {
+
+    public WalletFragment() {
         // Required empty public constructor
     }
 
@@ -57,12 +59,12 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_courses_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_wallet, container, false);
 
         init(view);
         listeners();
         setRecyclerView();
-        getCourseList();
+        getWalletDetails();
 
         return view;
     }
@@ -70,20 +72,24 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
     private void init(View view) {
         myContext = getActivity();
         mTitleTXT = view.findViewById(R.id.title_txt);
-        mDescTXT = view.findViewById(R.id.course_about_course_txt);
         mBackArrowIMG = view.findViewById(R.id.back_arrow);
-        mBannerIMG = view.findViewById(R.id.course_banner_img);
         mRecycle = view.findViewById(R.id.main_course_video_list);
+        wallet_amount = view.findViewById(R.id.wallet_amount);
 
         if (this.myRetrofitInstance == null) {
             myRetrofitInstance = new RetrofitInstance();
         }
-        //((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).hideToolbar();
 
     }
 
     private void listeners() {
-
+        mBackArrowIMG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO
+            }
+        });
     }
 
     @Override
@@ -93,17 +99,17 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
     @Override
     public void onResume() {
         super.onResume();
-        //((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).hideToolbar();
     }
 
     private void setRecyclerView() {
         mRecycle.setLayoutManager(new LinearLayoutManager(myContext, LinearLayoutManager.VERTICAL, false));
-        mAdapter = new CoursesListAdapter(getActivity(), mData, this);
+        mAdapter = new WalletHistoryAdapter(getActivity(), mData, this);
         mRecycle.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
     }
 
-    private void getCourseList() {
+    private void getWalletDetails() {
         aProgressDialog = new ProgressDialog(getActivity());
         aProgressDialog.show();
 
@@ -115,15 +121,17 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
         //aHeaderMap.put("X-Localization", "en");
         aHeaderMap.put("Authorization", "Bearer " + Prefs.getString(ACCESS_TOKEN, ""));
 
-        myRetrofitInstance.getAPI().getCourseList(aHeaderMap).enqueue(new Callback<CourseList>() {
+        myRetrofitInstance.getAPI().getWalletDetails(aHeaderMap).enqueue(new Callback<Wallet>() {
             @Override
-            public void onResponse(@NotNull Call<CourseList> call, @NotNull retrofit2.Response<CourseList> response) {
+            public void onResponse(@NotNull Call<Wallet> call, @NotNull retrofit2.Response<Wallet> response) {
                 aProgressDialog.dismiss();
                 if (response != null) {
-                    CourseList data = response.body();
+                    Wallet data = response.body();
                     if (data != null) {
                         if (data.getSuccess() == 1) {
-                            mAdapter.update(data.getData());
+                            wallet = data;
+                            mAdapter.update(data.getData().getWalletHistory());
+                            updateData();
                         }
                     } else {
                         YogaHelper.showAlertDialog(getActivity(), "Something went wrong");
@@ -132,7 +140,7 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
             }
 
             @Override
-            public void onFailure(Call<CourseList> call, Throwable t) {
+            public void onFailure(Call<Wallet> call, Throwable t) {
                 aProgressDialog.dismiss();
                 //  Toast.makeText( getActivity(), "Something went wrong", Toast.LENGTH_SHORT ).show();
                 YogaHelper.showAlertDialog(getActivity(), "Something went wrong");
@@ -141,8 +149,13 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
         });
     }
 
+    private void updateData() {
+        wallet_amount.setText(""+wallet.getData().getWalletCoins());
+    }
+
     @Override
     public void click(int aPostion, String s) {
 
     }
+
 }

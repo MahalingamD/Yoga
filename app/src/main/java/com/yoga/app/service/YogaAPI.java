@@ -3,6 +3,7 @@ package com.yoga.app.service;
 import com.yoga.app.model.CourseDetail;
 import com.yoga.app.model.CourseList;
 import com.yoga.app.model.Response;
+import com.yoga.app.model.Wallet;
 
 import java.util.Map;
 
@@ -33,6 +34,9 @@ public interface YogaAPI {
 
     @GET("courses")
     Call<CourseList> getCourseList(@HeaderMap Map<String, String> params);
+
+    @GET("wallet")
+    Call<Wallet> getWalletDetails(@HeaderMap Map<String, String> params);
 
     @GET("course/{id}")
     Call<CourseDetail> getCourseDetail(@Path("id") String user, @HeaderMap Map<String, String> params);
