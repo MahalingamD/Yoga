@@ -1,7 +1,9 @@
 package com.yoga.app.service;
 
+import com.yoga.app.model.CourseDetail;
 import com.yoga.app.model.CourseList;
 import com.yoga.app.model.Response;
+import com.yoga.app.model.Wallet;
 
 import java.util.Map;
 
@@ -10,6 +12,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.QueryMap;
 
 public interface YogaAPI {
@@ -30,6 +33,12 @@ public interface YogaAPI {
     Call<Response> getVerifyOTP(@QueryMap Map<String, String> params);
 
     @GET("courses")
-    Call<CourseList> getCourseList(@QueryMap Map<String, String> params);
+    Call<CourseList> getCourseList(@HeaderMap Map<String, String> params);
+
+    @GET("wallet")
+    Call<Wallet> getWalletDetails(@HeaderMap Map<String, String> params);
+
+    @GET("course/{id}")
+    Call<CourseDetail> getCourseDetail(@Path("id") String user, @HeaderMap Map<String, String> params);
 
 }

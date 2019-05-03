@@ -33,9 +33,9 @@
 
         <com.wang.avi.AVLoadingIndicatorView
             android:id="@+id/spinnerVideoDetails"
-            style="@style/AVLoadingIndicatorView.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/AVLoadingIndicatorView"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_centerInParent="true"
             android:visibility="visible"
             app:indicatorColor="@color/white"
@@ -60,7 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_video_detail_video_LAY"
         android:padding="10dp"
-        android:textStyle="bold" />
+        style="@style/title_text" />
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/activity_video_detail_description"
@@ -68,6 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_video_detail_title"
         android:maxLines="3"
+        style="@style/desc_text"
         android:padding="10dp" />
 
     <android.support.v7.widget.AppCompatTextView
@@ -76,7 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_video_detail_description"
         android:padding="10dp"
-        android:text="Next Videos"
+        style="@style/sub_title_text"
+        android:text="Course Videos"
         android:textStyle="bold" />
 
     <android.support.v7.widget.RecyclerView

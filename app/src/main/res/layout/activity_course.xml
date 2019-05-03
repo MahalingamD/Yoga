@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activities.CourseActivity">
 
     <android.support.v4.widget.NestedScrollView
@@ -79,31 +80,38 @@
 
                 </LinearLayout>
 
-                <RelativeLayout
-                    android:id="@+id/course_trail_video_lay"
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_marginBottom="16dp">
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="5dp"
+                    app:cardElevation="3sp">
 
-                    <ImageView
+                    <RelativeLayout
+                        android:id="@+id/course_trail_video_lay"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/image_bg"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/beginer" />
+                        android:layout_height="200dp">
 
-                    <ImageView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/ic_exo_play"
-                        android:tint="@color/white" />
+                        <ImageView
+                            android:id="@+id/course_first_video_IMG"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/beginer" />
 
-                </RelativeLayout>
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerInParent="true"
+                            android:src="@drawable/ic_exo_play"
+                            android:tint="@color/white" />
+
+                    </RelativeLayout>
+                </android.support.v7.widget.CardView>
 
                 <TextView
                     android:id="@+id/course_title"
                     style="@style/title_text"
+                    android:layout_marginTop="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:text="Title" />
@@ -128,7 +136,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/common_bg_color"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:focusable="false"/>
 
             </LinearLayout>
 

@@ -56,7 +56,7 @@ public class APPFragmentManager {
             aTransaction.addToBackStack(tag);
 
             // Commit the Fragment transaction
-            // aTransaction.commit ();
+            //aTransaction.commit ();
 
             aTransaction.commitAllowingStateLoss();
 

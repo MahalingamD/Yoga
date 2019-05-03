@@ -67,7 +67,7 @@
                     android:layout_marginTop="@dimen/margin_10"
                     android:text="Today, 05:30 AM"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/font_14" />
+                    android:textSize="@dimen/font_12" />
 
 
             </RelativeLayout>

@@ -7,9 +7,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Awesome Pojo Generator
- */
+
 public class Data implements Serializable {
    @SerializedName("access_token")
    @Expose
@@ -20,6 +18,8 @@ public class Data implements Serializable {
    @SerializedName("expires_in")
    @Expose
    private String expires_in;
+
+
 
    public void setAccess_token( String access_token ) {
       this.access_token = access_token;

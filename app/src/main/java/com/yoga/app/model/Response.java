@@ -21,6 +21,28 @@ public class Response {
    @Expose
    private String message;
 
+   @SerializedName("error")
+   private String error;
+
+   @SerializedName("code")
+   private String code;
+
+   public String getCode() {
+      return code;
+   }
+
+   public void setCode(String code) {
+      this.code = code;
+   }
+
+   public String getError() {
+      return error;
+   }
+
+   public void setError(String error) {
+      this.error = error;
+   }
+
    public String getMessage() {
       return message;
    }
