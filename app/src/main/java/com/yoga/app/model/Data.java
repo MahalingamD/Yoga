@@ -151,4 +151,15 @@ public class Data implements Serializable {
    public void setmCategoryArrayList( ArrayList<Category> mCategoryArrayList ) {
       this.mCategoryArrayList = mCategoryArrayList;
    }
+
+   @SerializedName("profile")
+   private DashProfile mProfile;
+
+   public DashProfile getmProfile() {
+      return mProfile;
+   }
+
+   public void setmProfile(DashProfile mProfile) {
+      this.mProfile = mProfile;
+   }
 }

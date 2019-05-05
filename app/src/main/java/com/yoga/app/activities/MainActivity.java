@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -49,6 +51,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         mToolbar.setVisibility(View.GONE);
     }
 
+    public void showBottomToolbar() {
+        mNavigation.setVisibility(View.VISIBLE);
+    }
+
+    public void hideBottomToolbar() {
+        mNavigation.setVisibility(View.GONE);
+    }
+
+
+
     private void DefaultFragment() {
         mFragmentManager.clearAllFragments();
         mFragmentManager.updateContent(new DashboardFragment(), "Dashboard Fragment", null);
@@ -92,11 +104,24 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         }*/
 
         int aCount = mFragmentManager.getBackstackCount();
-        if( aCount == 1 ) {
-            exitApp();
+        if (aCount == 1) {
+            if (!(getCurrentFragment() instanceof DashboardFragment)) {
+                mNavigation.getMenu().getItem(0).setChecked(true);
+                mFragmentManager.clearAllFragments();
+                mFragmentManager.updateContent(new DashboardFragment(), "Dashboard Fragment", null);
+            } else {
+                exitApp();
+            }
         } else
             mFragmentManager.onBackPress();
 
+    }
+
+
+    private Fragment getCurrentFragment() {
+        FragmentManager aFragmentManager = getSupportFragmentManager();
+        String aFragmentTag = aFragmentManager.getBackStackEntryAt(aFragmentManager.getBackStackEntryCount() - 1).getName();
+        return getSupportFragmentManager().findFragmentByTag(aFragmentTag);
     }
 
     public void exitApp() {

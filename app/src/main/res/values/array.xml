@@ -3,7 +3,7 @@
 
     <string-array name="menu_icon_normal">
         <item>@drawable/ic_profile</item>
-        <item>@drawable/ic_exercise</item>
+        <!--<item>@drawable/ic_exercise</item>-->
         <item>@drawable/ic_e_wallet</item>
         <item>@drawable/ic_fav</item>
         <item>@drawable/ic_invite_friends</item>

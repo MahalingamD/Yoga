@@ -83,6 +83,7 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
             myRetrofitInstance = new RetrofitInstance();
         }
         ((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).showBottomToolbar();
 
     }
 
@@ -103,6 +104,7 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).showBottomToolbar();
     }
 
     private void setRecyclerView() {

@@ -18,7 +18,9 @@ import com.yoga.app.adapter.ViewpagerAdapter;
 import com.yoga.app.helper.YogaHelper;
 import com.yoga.app.model.Banner;
 import com.yoga.app.model.Category;
+import com.yoga.app.model.DashProfile;
 import com.yoga.app.model.Pages;
+import com.yoga.app.model.Profile;
 import com.yoga.app.model.Response;
 import com.yoga.app.service.RetrofitInstance;
 import com.yoga.app.utils.Prefs;
@@ -95,6 +97,7 @@ public class DashboardFragment extends Fragment {
         setViewpager();
         setRecyclerView();
         ((MainActivity) getActivity()).showToolbar();
+        ((MainActivity) getActivity()).showBottomToolbar();
         callDashboard();
     }
 
@@ -129,6 +132,7 @@ public class DashboardFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).showToolbar();
+        ((MainActivity) getActivity()).showBottomToolbar();
     }
 
 
@@ -158,6 +162,9 @@ public class DashboardFragment extends Fragment {
                             Pages mPages = data.getData().getmPages();
                             mCategoryArrayList = data.getData().getmCategoryArrayList();
 
+                            DashProfile aProfile = data.getData().getmProfile();
+
+                            Prefs.putObject("profile", aProfile);
                             Prefs.putObject("pages", mPages);
 
                             mAdapter.updateAdapter((ArrayList<Banner>) mBannerList);
@@ -173,7 +180,7 @@ public class DashboardFragment extends Fragment {
                             }
                             setBenefit(data.getData().getmBenefits().text, data.getData().getmBenefits().separator);
 
-                        }else{
+                        } else {
                             YogaHelper.showAlertDialog(getActivity(), data.getError());
                         }
                     } else {
