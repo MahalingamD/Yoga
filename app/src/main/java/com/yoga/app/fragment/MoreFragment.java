@@ -24,10 +24,23 @@ import com.yoga.app.activities.MainActivity;
 import com.yoga.app.activities.WelcomeActivity;
 import com.yoga.app.adapter.MorePageAdapter;
 import com.yoga.app.base.APPFragmentManager;
+import com.yoga.app.helper.YogaHelper;
+import com.yoga.app.model.Response;
+import com.yoga.app.service.RetrofitInstance;
 import com.yoga.app.utils.Prefs;
+import com.yoga.app.utils.ProgressDialog;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+
+import static com.yoga.app.constant.PrefConstants.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +52,10 @@ public class MoreFragment extends Fragment {
     private MorePageAdapter mMoreMenuListAdapter;
     private ArrayList<String> mMenuArrayList;
     APPFragmentManager mFragmentManager;
+
+    private RetrofitInstance myRetrofitInstance;
+    ProgressDialog aProgressDialog;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,6 +71,11 @@ public class MoreFragment extends Fragment {
     private void init(View mView) {
 
         ((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).showBottomToolbar();
+
+        if (this.myRetrofitInstance == null) {
+            myRetrofitInstance = new RetrofitInstance();
+        }
 
         mMenuRecyclerView = mView.findViewById(R.id.menu_RecyclerView);
 
@@ -84,6 +106,7 @@ public class MoreFragment extends Fragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).showBottomToolbar();
     }
 
 
@@ -97,20 +120,29 @@ public class MoreFragment extends Fragment {
                     mFragmentManager.updateContent(new ProfileFragment(), "ProfileFragment", aBundle);
                     break;
                 }
-                case 2: {
+                case 1: {
                     mFragmentManager.updateContent(new WalletFragment(), "WalletFragment", aBundle);
                     break;
                 }
-                case 6: {
+                case 3: {
+                    mFragmentManager.updateContent(new InviteFriendFragment(), "InviteFriendFragment", aBundle);
+                    break;
+                }
+                case 5: {
                     aBundle.putString("page_value", "about");
                     mFragmentManager.updateContent(new CommonFragment(), "CommonFragment", aBundle);
                     break;
                 }
-                case 7: {
+                case 6: {
                     showFeedbackAlertDialog();
                     break;
                 }
-                case 9: {
+                case 7: {
+                    aBundle.putString("page_value", "faq");
+                    mFragmentManager.updateContent(new CommonFragment(), "CommonFragment", aBundle);
+                    break;
+                }
+                case 8: {
                     logoutAlertDialog();
                     break;
                 }
@@ -180,7 +212,11 @@ public class MoreFragment extends Fragment {
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                if (etComments.getText().toString().trim().length() > 0)
+                    callFeedback(etComments.getText().toString());
+                else {
+                    dialog.dismiss();
+                }
             }
         });
 
@@ -208,5 +244,39 @@ public class MoreFragment extends Fragment {
         DisplayMetrics metrics = resources.getDisplayMetrics();
         int dp = (int) (px / (metrics.densityDpi / 160f));
         return dp;
+    }
+
+    private void callFeedback(String params) {
+        aProgressDialog = new ProgressDialog(getActivity());
+        aProgressDialog.show();
+
+        Map<String, String> aHeaderMap = new HashMap<>();
+        aHeaderMap.put("X-Device", YogaHelper.aDeviceId(getActivity()));
+        aHeaderMap.put("X-Localization", "en");
+        aHeaderMap.put("Authorization", "Bearer " + Prefs.getString(ACCESS_TOKEN, ""));
+
+
+        myRetrofitInstance.getAPI().putFeedbackDetails(aHeaderMap, params).enqueue(new Callback<Response>() {
+            @Override
+            public void onResponse(@NotNull Call<Response> call, @NotNull retrofit2.Response<Response> response) {
+                aProgressDialog.dismiss();
+                Response data = response.body();
+                if (data != null) {
+                    if (data.getSuccess() == 1) {
+                        YogaHelper.showAlertDialog(getActivity(), data.getMessage());
+                    } else {
+                        YogaHelper.showAlertDialog(getActivity(), data.getError());
+                    }
+                } else {
+                    YogaHelper.showAlertDialog(getActivity(), "Something went wrong");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Response> call, Throwable t) {
+                aProgressDialog.dismiss();
+                YogaHelper.showAlertDialog(getActivity(), "Something went wrong");
+            }
+        });
     }
 }

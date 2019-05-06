@@ -10,6 +10,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.yoga.app.R;
+import com.yoga.app.activities.MainActivity;
 import com.yoga.app.model.Pages;
 import com.yoga.app.utils.Prefs;
 
@@ -19,54 +20,67 @@ import com.yoga.app.utils.Prefs;
 public class CommonFragment extends Fragment {
 
 
-   WebView mWebView;
-   View mView;
+    WebView mWebView;
+    View mView;
 
 
-   @Override
-   public View onCreateView( LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState ) {
-      // Inflate the layout for this fragment
-      mView = inflater.inflate( R.layout.fragment_common, container, false );
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        mView = inflater.inflate(R.layout.fragment_common, container, false);
 
-      init( mView );
+        init(mView);
 
-      return mView;
-   }
+        return mView;
+    }
 
-   private void init( View mView ) {
-      mWebView = mView.findViewById( R.id.webView );
+    private void init(View mView) {
+        mWebView = mView.findViewById(R.id.webView);
+
+        ((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).hideBottomToolbar();
+
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        getBundleValue();
 
 
-      WebSettings webSettings = mWebView.getSettings();
-      webSettings.setJavaScriptEnabled( true );
+    }
 
-      getBundleValue();
+    private void getBundleValue() {
 
+        Bundle aBundle = getArguments();
+        String aString = aBundle.getString("page_value", "");
 
-   }
+        Pages aPages = Prefs.getObject("pages", Pages.class);
+        String aPageURL;
 
-   private void getBundleValue() {
+        switch (aString) {
+            case "about":
+                aPageURL = aPages.about;
+                break;
+            case "terms":
+                aPageURL = aPages.terms;
+                break;
+            case "faq":
+                aPageURL = aPages.faq;
+                break;
+            default:
+                aPageURL = aPages.privacy;
+                break;
+        }
 
-      Bundle aBundle = getArguments();
-      String aString = aBundle.getString( "page_value", "" );
+        mWebView.loadUrl(aPageURL);
+    }
 
-      Pages aPages = Prefs.getObject( "pages", Pages.class );
-      String aPageURL;
+    @Override
+    public void onResume() {
+        super.onResume();
 
-      switch( aString ) {
-         case "about":
-            aPageURL = aPages.about;
-            break;
-         case "terms":
-            aPageURL = aPages.terms;
-            break;
-         default:
-            aPageURL = aPages.privacy;
-            break;
-      }
+        ((MainActivity) getActivity()).hideToolbar();
+        ((MainActivity) getActivity()).hideBottomToolbar();
 
-      mWebView.loadUrl( aPageURL );
-   }
-
+    }
 }
