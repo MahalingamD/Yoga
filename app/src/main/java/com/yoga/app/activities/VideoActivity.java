@@ -192,6 +192,7 @@ public class VideoActivity extends AppCompatActivity implements Player.EventList
             }
         }*/
         mTitleTXT.setText(mVideoArrayList.get(mPosition).getCvideo_desc_title());
+        mDescriptionTXT.setText(mVideoArrayList.get(mPosition).getCvideo_desc_description());
     }
 
     private void setUp() {

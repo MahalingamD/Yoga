@@ -55,7 +55,7 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
         } else {
             viewHolder.paymentTXT.setText("Paid");
         }
-        //viewHolder.videoCountTXT.setText(courseVideos.());
+        viewHolder.videoCountTXT.setText(courseVideos.getCourse_no_of_videos() + " Videos");
         Picasso.with(mContext).load(courseVideos.getCourseImage()).
                 placeholder(R.drawable.yoga_benefit).into(viewHolder.thumpnail);
 
@@ -75,8 +75,6 @@ public class CoursesListAdapter extends RecyclerView.Adapter<CoursesListAdapter.
                 mContext.startActivity(intent);
             }
         });
-
-
     }
 
     @Override
