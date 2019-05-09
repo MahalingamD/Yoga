@@ -9,6 +9,11 @@
         <item name="colorControlHighlight">@color/grey</item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="LoginTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
         <item name="boxStrokeColor">@color/login_red_light</item>
         <item name="boxStrokeWidth">2dp</item>
