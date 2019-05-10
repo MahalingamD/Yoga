@@ -46,7 +46,7 @@ public class CourseVideoAdapter extends RecyclerView.Adapter<CourseVideoAdapter.
         final Course_videos courseVideos = mCourseVideosArrayList.get(i);
 
         viewHolder.titleTXT.setText(courseVideos.getCvideo_desc_title());
-        //viewHolder.durationTXT.setText(courseVideos.getMin());
+        //viewHolder.durationTXT.setText(courseVideos.get());
         Picasso.with(mContext).load(courseVideos.getCvideo_thumbnail()).
                 placeholder(R.drawable.yoga_benefit).into(viewHolder.thumpnail);
         if(courseVideos.getCvideo_is_free() == 1){

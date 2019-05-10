@@ -32,6 +32,9 @@ public class Course implements Serializable {
 	@SerializedName("course_desc_about")
 	private String courseDescAbout;
 
+	@SerializedName("course_no_of_videos")
+	private String course_no_of_videos;
+
 	@SerializedName("course_videos")
 	@Expose
 	private ArrayList<Course_videos> course_videos;
@@ -106,6 +109,14 @@ public class Course implements Serializable {
 
 	public String getCourseDescAbout(){
 		return courseDescAbout;
+	}
+
+	public String getCourse_no_of_videos() {
+		return course_no_of_videos;
+	}
+
+	public void setCourse_no_of_videos(String course_no_of_videos) {
+		this.course_no_of_videos = course_no_of_videos;
 	}
 
 	@Override

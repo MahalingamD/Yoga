@@ -120,7 +120,6 @@ public class DashboardFragment extends Fragment {
         viewPager.setStopScrollWhenTouch(true);
         mAdapter = new ViewpagerAdapter(getActivity(), mBannerList);
         viewPager.setAdapter(mAdapter);
-
         viewPager.setClipToPadding(false);
         // set padding manually, the more you set the padding the more you see of prev & next page
         viewPager.setPadding(YogaHelper.pxFromDp(getActivity(), myPadding), 0, YogaHelper.pxFromDp(getActivity(), myPadding), 0);

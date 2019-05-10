@@ -35,4 +35,6 @@
     <color name="recyclerView_background">#F0F1F3</color>
     <color name="green">#00c853</color>
 
+    <color name="profile_default_tint">#e0e0e0</color>
+
 </resources>

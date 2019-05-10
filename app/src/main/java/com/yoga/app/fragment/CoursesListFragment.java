@@ -134,7 +134,8 @@ public class CoursesListFragment extends Fragment implements View.OnClickListene
                     CourseList data = response.body();
                     if (data != null) {
                         if (data.getSuccess() == 1) {
-                            mAdapter.update(data.getData());
+                            mAdapter.update(data.getData().getData());
+                            mDescTXT.setText(data.getData().getAbout());
                         }
                     } else {
                         YogaHelper.showAlertDialog(getActivity(), "Something went wrong");

@@ -18,8 +18,8 @@
 
         <ImageButton
             android:id="@id/exo_prev"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:background="@null"
             android:src="@drawable/ic_exo_back"
@@ -27,8 +27,8 @@
 
         <ImageButton
             android:id="@id/exo_play"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:background="@null"
             android:src="@drawable/ic_exo_play"
@@ -36,8 +36,8 @@
 
         <ImageButton
             android:id="@id/exo_pause"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:background="@null"
             android:src="@drawable/ic_exo_pause"
@@ -45,8 +45,8 @@
 
         <ImageButton
             android:id="@id/exo_next"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_weight="1"
             android:background="@null"
             android:src="@drawable/ic_exo_next"
@@ -58,7 +58,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/color_progress_bg"
+        android:background="@color/login_red_light"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
@@ -93,7 +93,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                android:textColor="#A0A0A0"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -104,7 +104,7 @@
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
                 android:text="/"
-                android:textColor="#333333"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -115,7 +115,7 @@
                 android:includeFontPadding="false"
                 android:paddingLeft="4dp"
                 android:paddingRight="4dp"
-                android:textColor="#333333"
+                android:textColor="@color/white"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
@@ -127,6 +127,7 @@
             android:layout_height="20dp"
             android:layout_below="@+id/exo_progress"
             android:layout_alignParentRight="true"
+            android:tint="@color/white"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_exo_full_screen" />
 

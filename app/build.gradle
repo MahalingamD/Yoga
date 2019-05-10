@@ -32,6 +32,11 @@ android {
 
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 ext {
@@ -116,6 +121,11 @@ dependencies {
 
     //exo player
     implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
+
+    //dexter permissions
+    implementation "com.karumi:dexter:5.0.0"
+
+    implementation 'com.github.yalantis:ucrop:2.2.2'
 
 
 }

@@ -6,19 +6,11 @@ import java.util.ArrayList;
 
 public class CourseList {
 
-    @SerializedName("data")
-    private ArrayList<Course> data;
-
     @SerializedName("success")
     private int success;
 
-    public void setData(ArrayList<Course> data) {
-        this.data = data;
-    }
-
-    public ArrayList<Course> getData() {
-        return data;
-    }
+    @SerializedName("data")
+    private Data data;
 
     public void setSuccess(int success) {
         this.success = success;
@@ -28,6 +20,14 @@ public class CourseList {
         return success;
     }
 
+    public Data getData() {
+        return data;
+    }
+
+    public void setData(Data data) {
+        this.data = data;
+    }
+
     @Override
     public String toString() {
         return
@@ -35,5 +35,30 @@ public class CourseList {
                         "data = '" + data + '\'' +
                         ",success = '" + success + '\'' +
                         "}";
+    }
+
+    public class Data {
+
+        @SerializedName("about")
+        String about;
+
+        @SerializedName("courses")
+        private ArrayList<Course> data;
+
+        public String getAbout() {
+            return about;
+        }
+
+        public void setAbout(String about) {
+            this.about = about;
+        }
+
+        public void setData(ArrayList<Course> data) {
+            this.data = data;
+        }
+
+        public ArrayList<Course> getData() {
+            return data;
+        }
     }
 }
