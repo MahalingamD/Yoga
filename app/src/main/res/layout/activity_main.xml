@@ -33,7 +33,7 @@
                 android:visibility="gone" />
 
 
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/main_profile"
                 android:layout_width="48dp"
                 android:layout_height="48dp"

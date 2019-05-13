@@ -166,6 +166,8 @@ public class DashboardFragment extends Fragment {
                             Prefs.putObject("profile", aProfile);
                             Prefs.putObject("pages", mPages);
 
+                            ((MainActivity) getActivity()).setProfileImage(aProfile);
+
                             mAdapter.updateAdapter((ArrayList<Banner>) mBannerList);
                             mDashboardVerticalAdapter.updateAdapter(mCategoryArrayList);
 

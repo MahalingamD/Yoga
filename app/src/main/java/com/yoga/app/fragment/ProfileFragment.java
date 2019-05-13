@@ -243,6 +243,8 @@ public class ProfileFragment extends Fragment {
                Bitmap bitmap = MediaStore.Images.Media.getBitmap( mContext.getContentResolver(), uri );
 
                String aFilePath = persistImage( bitmap );
+
+               putProfileImage( aFilePath );
                //  getImageUri( bitmap );
                //  Log.e("file_path", getRealPathFromURI(uri));
                // loading profile image from local cache
@@ -261,8 +263,8 @@ public class ProfileFragment extends Fragment {
       String path = MediaStore.Images.Media.insertImage( mContext.getContentResolver(), inImage, "Title", null );
 
 
-      Log.e( "URI PATH", getRealPathFromURI( Uri.parse( path ) ) );
-      Log.e( "PAth", path );
+      //Log.e( "URI PATH", getRealPathFromURI( Uri.parse( path ) ) );
+      //Log.e( "PAth", path );
       return Uri.parse( path );
    }
 
@@ -366,6 +368,8 @@ public class ProfileFragment extends Fragment {
       mEmailEdit.setText( data.data.account_email );
       mPhoneEdit.setText( data.data.account_mobile_no );
       mAgeEdit.setText( data.data.account_age );
+
+      Picasso.with( mContext ).load( data.data.account_photo ).placeholder( R.drawable.ic_user ).fit().into( mCircleImageView );
    }
 
    private void setSpinnerValues() {
@@ -569,6 +573,51 @@ public class ProfileFragment extends Fragment {
 
 
       myRetrofitInstance.getAPI().upload( aHeaderMap, ImagePart, aImageMap ).enqueue( new Callback<Response>() {
+         @Override
+         public void onResponse( @NotNull Call<Response> call, @NotNull retrofit2.Response<Response> response ) {
+            aProgressDialog.dismiss();
+            if( response.isSuccessful() ) {
+               Response data = response.body();
+               if( data != null ) {
+                  if( data.getSuccess() == 1 ) {
+                     //  String aAccountId = data.getData().account_id;
+                     //  String aOTP = data.getData().otp;
+
+                     showOkDialog( data.getMessage() );
+                  } else {
+                     showAlertDialog( getActivity(), data.getError() );
+                  }
+               }
+            } else {
+               showAlertDialog( getActivity(), "Something went wrong" );
+            }
+         }
+
+         @Override
+         public void onFailure( Call<Response> call, Throwable t ) {
+            aProgressDialog.dismiss();
+            showAlertDialog( getActivity(), "Something went wrong" );
+
+         }
+      } );
+   }
+
+   public void putProfileImage( String realPathFromURI ) {
+
+      aProgressDialog = new ProgressDialog( getActivity() );
+      aProgressDialog.show();
+
+      Map<String, String> aHeaderMap = new HashMap<>();
+
+      aHeaderMap.put( "X-Device", YogaHelper.aDeviceId( mContext ) );
+      // aHeaderMap.put("X-Localization", "en");
+      aHeaderMap.put( "Authorization", "Bearer " + Prefs.getString( ACCESS_TOKEN, "" ) );
+
+      File ImageFile = new File( realPathFromURI );
+      RequestBody profileImage = RequestBody.create( MediaType.parse( "image/*" ), ImageFile );
+      MultipartBody.Part ImagePart = MultipartBody.Part.createFormData( "photo", ImageFile.getName(), profileImage );
+
+      myRetrofitInstance.getAPI().uploadProfile( aHeaderMap, ImagePart ).enqueue( new Callback<Response>() {
          @Override
          public void onResponse( @NotNull Call<Response> call, @NotNull retrofit2.Response<Response> response ) {
             aProgressDialog.dismiss();
