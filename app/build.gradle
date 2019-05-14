@@ -29,7 +29,7 @@ android {
             resValue "string", "FACEBOOK_APP_ID", "860083914330764"
             buildConfigField "String", "Main_Base_url", '"https://onlinew3tools.com/demo/yoga_app/api/v1/"'
             buildConfigField "String", "Date_field", '"yyyy-MM-dd hh:mm:ss.SSS"'
-
+//
         }
     }
 
@@ -79,11 +79,11 @@ dependencies {
     implementation "com.jakewharton:butterknife:$butterKnifeVersion"
     implementation 'com.google.firebase:firebase-auth:17.0.0'
 
+    implementation 'com.google.firebase:firebase-messaging:18.0.0'
     annotationProcessor "com.jakewharton:butterknife-compiler:$butterKnifeVersion"
 
     //Gson
     implementation "com.google.code.gson:gson:$gsonVersion"
-
 
 
     //material progressbar
@@ -91,7 +91,6 @@ dependencies {
 
     //material toast library
     implementation "com.andrognito.flashbar:flashbar:$flashbar"
-
 
 
     implementation "com.google.firebase:firebase-auth:$firebaseVersion"
@@ -122,9 +121,6 @@ dependencies {
 
     //video loader
     implementation 'com.wang.avi:library:2.1.3'
-
-    //exo player
-   // implementation 'com.google.android.exoplayer:exoplayer:2.8.2'
 
     //dexter permissions
     implementation "com.karumi:dexter:5.0.0"
