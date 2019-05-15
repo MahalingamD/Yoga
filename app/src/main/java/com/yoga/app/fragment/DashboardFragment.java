@@ -1,6 +1,7 @@
 package com.yoga.app.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.yoga.app.R;
 import com.yoga.app.activities.MainActivity;
+import com.yoga.app.activities.WelcomeActivity;
 import com.yoga.app.adapter.DashboardVerticalAdapter;
 import com.yoga.app.adapter.ViewpagerAdapter;
 import com.yoga.app.helper.YogaHelper;
@@ -20,8 +24,8 @@ import com.yoga.app.model.Banner;
 import com.yoga.app.model.Category;
 import com.yoga.app.model.DashProfile;
 import com.yoga.app.model.Pages;
-import com.yoga.app.model.Profile;
 import com.yoga.app.model.Response;
+import com.yoga.app.model.SMErrorModel;
 import com.yoga.app.service.RetrofitInstance;
 import com.yoga.app.utils.Prefs;
 import com.yoga.app.utils.ProgressDialog;
@@ -182,11 +186,31 @@ public class DashboardFragment extends Fragment {
                             setBenefit(data.getData().getmBenefits().text, data.getData().getmBenefits().separator);
 
                         } else {
-                            YogaHelper.showAlertDialog(getActivity(), data.getError());
+                            if (!data.getError().contains("mismatch")) {
+                                YogaHelper.showAlertDialog(getActivity(), data.getError());
+                            } else {
+                                Prefs.clear().apply();
+                                Intent intent = new Intent(getActivity(), WelcomeActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                getActivity().finish();
+                            }
                         }
                     } else {
                         YogaHelper.showAlertDialog(getActivity(), "Something went wrong");
                     }
+                } else {
+                    Gson gson = new Gson();
+                    SMErrorModel message=gson.fromJson(response.errorBody().charStream(),SMErrorModel.class);
+
+                    if(message.code.equalsIgnoreCase("TOKEN_INVALID")){
+                        Prefs.clear().apply();
+                        Intent intent = new Intent(getActivity(), WelcomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
+                  //  YogaHelper.showAlertDialog(getActivity(), message.error);
                 }
             }
 
