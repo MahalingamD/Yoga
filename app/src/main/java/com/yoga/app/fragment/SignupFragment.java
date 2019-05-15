@@ -136,7 +136,7 @@ public class SignupFragment extends Fragment {
 
                   String aString = Prefs.getString( "FCM_Token", "" );
 
-                  Log.e( "TOKEN", aString);
+                  Log.e( "TOKEN", aString );
                   putRegisterValue();
                }
             } else {
@@ -339,7 +339,7 @@ public class SignupFragment extends Fragment {
       aHeaderMap.put( "gender", mGender );
       aHeaderMap.put( "profession", mProfession );
       aHeaderMap.put( "lang_id", "1" );
-      aHeaderMap.put( "fcm_id", "1cnvxmvnmx2345678n" );
+      aHeaderMap.put( "fcm_id", Prefs.getString( "FCM_Token", "" ) );
 
       myRetrofitInstance.getAPI().PutRegisterAPI( aHeaderMap ).enqueue( new Callback<Response>() {
          @Override

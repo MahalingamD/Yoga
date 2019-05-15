@@ -25,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yoga.app.R;
@@ -98,7 +99,10 @@ public class ProfileFragment extends Fragment {
    ProfessionAdapter mProfessionAdapter;
    CountryAdapter mCountryAdapter;
    CircleImageView mCircleImageView;
+   TextView mProfile_name;
    private APPFragmentManager mFragmentManager;
+
+   boolean mBool = false;
 
    FragmentActivity mContext;
 
@@ -130,6 +134,7 @@ public class ProfileFragment extends Fragment {
       mEditImage = mView.findViewById( R.id.profile_edit );
       mUpdateBut = mView.findViewById( R.id.fragment_update_btn );
       mCircleImageView = mView.findViewById( R.id.profile_image );
+      mProfile_name = mView.findViewById( R.id.profile_profile_text );
 
       setEditable( false );
 
@@ -248,7 +253,9 @@ public class ProfileFragment extends Fragment {
                //  getImageUri( bitmap );
                //  Log.e("file_path", getRealPathFromURI(uri));
                // loading profile image from local cache
-               loadProfile( uri.toString() );
+
+               if( mBool )
+                  loadProfile( uri.toString() );
             } catch( IOException e ) {
                e.printStackTrace();
             }
@@ -369,7 +376,10 @@ public class ProfileFragment extends Fragment {
       mPhoneEdit.setText( data.data.account_mobile_no );
       mAgeEdit.setText( data.data.account_age );
 
-      Picasso.with( mContext ).load( data.data.account_photo ).placeholder( R.drawable.ic_user ).fit().into( mCircleImageView );
+      mProfile_name.setText( data.data.account_name );
+
+      if( data.data.account_photo != null && !data.data.account_photo.isEmpty() )
+         Picasso.with( mContext ).load( data.data.account_photo ).placeholder( R.drawable.ic_user ).fit().into( mCircleImageView );
    }
 
    private void setSpinnerValues() {
@@ -627,13 +637,15 @@ public class ProfileFragment extends Fragment {
                   if( data.getSuccess() == 1 ) {
                      //  String aAccountId = data.getData().account_id;
                      //  String aOTP = data.getData().otp;
-
+                     mBool = true;
                      showOkDialog( data.getMessage() );
                   } else {
                      showAlertDialog( getActivity(), data.getError() );
+                     mBool = false;
                   }
                }
             } else {
+               mBool = false;
                showAlertDialog( getActivity(), "Something went wrong" );
             }
          }
@@ -641,6 +653,7 @@ public class ProfileFragment extends Fragment {
          @Override
          public void onFailure( Call<Response> call, Throwable t ) {
             aProgressDialog.dismiss();
+            mBool = false;
             showAlertDialog( getActivity(), "Something went wrong" );
 
          }

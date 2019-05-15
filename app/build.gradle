@@ -9,6 +9,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -28,8 +29,7 @@ android {
 
             resValue "string", "FACEBOOK_APP_ID", "860083914330764"
             buildConfigField "String", "Main_Base_url", '"https://onlinew3tools.com/demo/yoga_app/api/v1/"'
-            buildConfigField "String", "Date_field", '"yyyy-MM-dd hh:mm:ss.SSS"'
-//
+
         }
     }
 
@@ -84,7 +84,6 @@ dependencies {
 
     //Gson
     implementation "com.google.code.gson:gson:$gsonVersion"
-
 
     //material progressbar
     implementation "com.pnikosis:materialish-progress:$progress"

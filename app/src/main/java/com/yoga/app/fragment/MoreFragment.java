@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 import com.yoga.app.R;
@@ -65,6 +66,7 @@ public class MoreFragment extends Fragment {
    Profile mData;
 
    CircleImageView profile_image;
+   TextView mProfile_name;
 
 
    @Override
@@ -83,6 +85,7 @@ public class MoreFragment extends Fragment {
       mContext = getActivity();
 
       profile_image = mView.findViewById( R.id.profile_image );
+      mProfile_name = mView.findViewById( R.id.more_profile_name );
 
       if( this.myRetrofitInstance == null ) {
          myRetrofitInstance = new RetrofitInstance();
@@ -334,8 +337,14 @@ public class MoreFragment extends Fragment {
    }
 
    private void setValues( Profile mData ) {
-      Picasso.with( mContext ).load( mData.data.account_photo ).
-              placeholder( R.drawable.ic_user ).fit().into( profile_image );
+      if( mData != null ) {
+         if( mData.data.account_photo != null && !mData.data.account_photo.isEmpty() ) {
+            Picasso.with( mContext ).load( mData.data.account_photo ).
+                    placeholder( R.drawable.ic_user ).fit().into( profile_image );
+         }
+
+         mProfile_name.setText( mData.data.account_name );
+      }
    }
 
 }

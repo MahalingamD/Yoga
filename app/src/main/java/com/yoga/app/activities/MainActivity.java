@@ -68,7 +68,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
 
    public void setProfileImage( DashProfile aProfile ) {
       if( aProfile != null )
-         Picasso.with( this ).load( aProfile.account_photo ).placeholder( R.drawable.ic_user ).fit().into( mCircleImageView );
+         if( aProfile.account_photo != null && !aProfile.account_photo.isEmpty() )
+            Picasso.with( this ).load( aProfile.account_photo ).placeholder( R.drawable.ic_user ).fit().into( mCircleImageView );
    }
 
 
