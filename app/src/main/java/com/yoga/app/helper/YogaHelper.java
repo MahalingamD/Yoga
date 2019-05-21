@@ -6,15 +6,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.telephony.TelephonyManager;
-import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 import com.yoga.app.R;
-import com.yoga.app.activities.WelcomeActivity;
+import com.yoga.app.activities.MainActivity;
 import com.yoga.app.utils.YogaNetworkManager;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 public class YogaHelper {
 
@@ -74,8 +73,11 @@ public class YogaHelper {
     * @param context Context
     * @param dp      float
     */
-   public static int pxFromDp(final Context context, final float dp) {
-      return (int) (dp * context.getResources().getDisplayMetrics().density);
+   public static int pxFromDp( final Context context, final float dp ) {
+      return ( int ) ( dp * context.getResources().getDisplayMetrics().density );
    }
+
+
+
 
 }

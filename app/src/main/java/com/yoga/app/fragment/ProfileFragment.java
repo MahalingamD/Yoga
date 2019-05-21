@@ -102,9 +102,10 @@ public class ProfileFragment extends Fragment {
    TextView mProfile_name;
    private APPFragmentManager mFragmentManager;
 
-   boolean mBool = false;
+   //boolean mBool = false;
 
    FragmentActivity mContext;
+   Uri uri;
 
    @Override
    public View onCreateView( @NotNull LayoutInflater inflater, ViewGroup container,
@@ -242,7 +243,7 @@ public class ProfileFragment extends Fragment {
    public void onActivityResult( int requestCode, int resultCode, @Nullable Intent data ) {
       if( requestCode == REQUEST_IMAGE ) {
          if( resultCode == Activity.RESULT_OK ) {
-            Uri uri = data.getParcelableExtra( "path" );
+            uri = data.getParcelableExtra( "path" );
             try {
                // You can update this bitmap to your server
                Bitmap bitmap = MediaStore.Images.Media.getBitmap( mContext.getContentResolver(), uri );
@@ -254,8 +255,7 @@ public class ProfileFragment extends Fragment {
                //  Log.e("file_path", getRealPathFromURI(uri));
                // loading profile image from local cache
 
-               if( mBool )
-                  loadProfile( uri.toString() );
+
             } catch( IOException e ) {
                e.printStackTrace();
             }
@@ -637,15 +637,22 @@ public class ProfileFragment extends Fragment {
                   if( data.getSuccess() == 1 ) {
                      //  String aAccountId = data.getData().account_id;
                      //  String aOTP = data.getData().otp;
-                     mBool = true;
+
+                     Prefs.putString( "Profile_test", "1" );
+
+                     loadProfile( uri.toString() );
+                     Prefs.putString( "Cache_image", uri.toString() );
+                   //  mBool = true;
                      showOkDialog( data.getMessage() );
                   } else {
+                     Prefs.putString( "Profile_test", "0" );
                      showAlertDialog( getActivity(), data.getError() );
-                     mBool = false;
+                    // mBool = false;
                   }
                }
             } else {
-               mBool = false;
+              // mBool = false;
+               Prefs.putString( "Profile_test", "0" );
                showAlertDialog( getActivity(), "Something went wrong" );
             }
          }
@@ -653,7 +660,8 @@ public class ProfileFragment extends Fragment {
          @Override
          public void onFailure( Call<Response> call, Throwable t ) {
             aProgressDialog.dismiss();
-            mBool = false;
+           // mBool = false;
+            Prefs.putString( "Profile_test", "0" );
             showAlertDialog( getActivity(), "Something went wrong" );
 
          }

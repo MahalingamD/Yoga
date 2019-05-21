@@ -1,15 +1,18 @@
 package com.yoga.app.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -18,11 +21,15 @@ import com.yoga.app.base.APPFragmentManager;
 import com.yoga.app.fragment.CoursesListFragment;
 import com.yoga.app.fragment.DashboardFragment;
 import com.yoga.app.fragment.MoreFragment;
+import com.yoga.app.helper.YogaHelper;
 import com.yoga.app.model.DashProfile;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import permission.auron.com.marshmallowpermissionhelper.ActivityManagePermission;
+import permission.auron.com.marshmallowpermissionhelper.PermissionResult;
+import permission.auron.com.marshmallowpermissionhelper.PermissionUtils;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends ActivityManagePermission implements BottomNavigationView.OnNavigationItemSelectedListener, PermissionResult {
 
    BottomNavigationView mNavigation;
    APPFragmentManager mFragmentManager;
@@ -38,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
    protected void onCreate( Bundle savedInstanceState ) {
       super.onCreate( savedInstanceState );
       setContentView( R.layout.activity_main );
+
+      askPermission();
 
       mToolbar = findViewById( R.id.toolbar );
       mCircleImageView = findViewById( R.id.main_profile );
@@ -158,5 +167,102 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
    protected void onActivityResult( int requestCode, int resultCode, Intent data ) {
       Fragment fragment = getSupportFragmentManager().findFragmentById( R.id.main_container );
       fragment.onActivityResult( requestCode, resultCode, data );
+   }
+
+   private void askPermission() {
+      try {
+         askCompactPermissions( new String[]{
+                 PermissionUtils.Manifest_READ_PHONE_STATE,
+                 PermissionUtils.Manifest_READ_EXTERNAL_STORAGE,
+                 PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE
+         }, this );
+      } catch( Exception e ) {
+         e.printStackTrace();
+      }
+   }
+
+   public boolean checkPermissionGranted() {
+      boolean isGranted = false;
+      try {
+         isGranted = isPermissionsGranted( this, new String[]{ PermissionUtils.Manifest_READ_PHONE_STATE,
+                 PermissionUtils.Manifest_READ_EXTERNAL_STORAGE, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE } );
+      } catch( Exception e ) {
+         e.printStackTrace();
+      } finally {
+      }
+      return isGranted;
+   }
+
+   @Override
+   public void permissionGranted() {
+
+   }
+
+   @Override
+   public void permissionDenied() {
+      showAlertDialog( "You need permission to use application" );
+   }
+
+   @Override
+   public void permissionForeverDenied() {
+      showSettingAlertDialog( "You need permission to use application" );
+   }
+
+   /**
+    * @param aMessage aMessage
+    */
+   public void showAlertDialog( String aMessage ) {
+      try {
+         AlertDialog.Builder builder = new AlertDialog.Builder( this );
+         builder.setMessage( aMessage )
+                 .setTitle( this.getString( R.string.app_name ) )
+                 .setCancelable( false )
+                 .setPositiveButton( "Ok", new DialogInterface.OnClickListener() {
+                    public void onClick( DialogInterface dialog, int id ) {
+                       askPermission();
+                    }
+                 } );
+
+         AlertDialog alert = builder.create();
+         alert.show();
+         // Change the buttons color in dialog
+         Button pbutton = alert.getButton( DialogInterface.BUTTON_POSITIVE );
+         pbutton.setTextColor( ContextCompat.getColor( this, R.color.black ) );
+      } catch( Exception e ) {
+         e.printStackTrace();
+      }
+   }
+
+   /**
+    * @param aMessage aMessage
+    */
+   public void showSettingAlertDialog( String aMessage ) {
+      try {
+         AlertDialog.Builder builder = new AlertDialog.Builder( this );
+         builder.setMessage( aMessage )
+                 .setTitle( this.getString( R.string.app_name ) )
+                 .setCancelable( false )
+                 .setPositiveButton( "Ok", new DialogInterface.OnClickListener() {
+                    public void onClick( DialogInterface dialog, int id ) {
+                       YogaHelper.startInstalledAppDetailsActivity( MainActivity.this );
+                    }
+                 } );
+
+         AlertDialog alert = builder.create();
+         alert.show();
+         // Change the buttons color in dialog
+         Button pbutton = alert.getButton( DialogInterface.BUTTON_POSITIVE );
+         pbutton.setTextColor( ContextCompat.getColor( this, R.color.black ) );
+      } catch( Exception e ) {
+         e.printStackTrace();
+      }
+   }
+
+   @Override
+   protected void onResume() {
+      super.onResume();
+      if( checkPermissionGranted() ) {
+         askPermission();
+      }
    }
 }

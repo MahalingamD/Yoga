@@ -127,6 +127,7 @@ public class MoreFragment extends Fragment {
       super.onResume();
       ( ( MainActivity ) mContext ).hideToolbar();
       ( ( MainActivity ) mContext ).showBottomToolbar();
+      setValues();
    }
 
 
@@ -337,6 +338,7 @@ public class MoreFragment extends Fragment {
    }
 
    private void setValues( Profile mData ) {
+
       if( mData != null ) {
          if( mData.data.account_photo != null && !mData.data.account_photo.isEmpty() ) {
             Picasso.with( mContext ).load( mData.data.account_photo ).
@@ -345,6 +347,21 @@ public class MoreFragment extends Fragment {
 
          mProfile_name.setText( mData.data.account_name );
       }
+
    }
+
+
+   private void setValues() {
+
+      if( Prefs.getString( "Profile_test", "" ).equals( "1" ) ) {
+
+         String aPimage = Prefs.getString( "Cache_image", "" );
+         if( !aPimage.isEmpty() ) {
+            Picasso.with( mContext ).load( aPimage ).
+                    placeholder( R.drawable.ic_user ).fit().into( profile_image );
+         }
+      }
+   }
+
 
 }

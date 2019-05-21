@@ -3,7 +3,6 @@ package com.yoga.app.fragment;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
@@ -21,17 +20,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.yoga.app.R;
-import com.yoga.app.activities.MainActivity;
 import com.yoga.app.activities.WelcomeActivity;
 import com.yoga.app.adapter.CountryAdapter;
 import com.yoga.app.adapter.GenderAdapter;
 import com.yoga.app.adapter.HealthAdapter;
 import com.yoga.app.adapter.ProfessionAdapter;
 import com.yoga.app.helper.YogaHelper;
-import com.yoga.app.model.Banner;
 import com.yoga.app.model.Country;
 import com.yoga.app.model.Gender;
 import com.yoga.app.model.HealthDisorder;
@@ -50,8 +49,6 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-
-import static com.yoga.app.constant.PrefConstants.ACCESS_TOKEN;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +72,8 @@ public class SignupFragment extends Fragment {
    HealthAdapter mHealthAdapter;
    ProfessionAdapter mProfessionAdapter;
    CountryAdapter mCountryAdapter;
+   String token = "";
+
 
    TextInputLayout mNameTxt, mEmailTxt, mPhoneNumberTxt, mAgeTxt, mPasswordTxt;
    TextInputEditText mNameEdit, mEmailEdit, mMobileEdit, mAgeEdit, mPasswordEdit;
@@ -122,9 +121,20 @@ public class SignupFragment extends Fragment {
       mProfessionArrayList = new ArrayList<>();
       mCountryArrayList = new ArrayList<>();
 
+
+      FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( mContext, new OnSuccessListener<InstanceIdResult>() {
+         @Override
+         public void onSuccess( InstanceIdResult instanceIdResult ) {
+            token = instanceIdResult.getToken();
+            Log.e( "newToken", token );
+         }
+      } );
+
       clickListener();
 
       getRegisterValue();
+
+
    }
 
    private void clickListener() {
@@ -339,7 +349,19 @@ public class SignupFragment extends Fragment {
       aHeaderMap.put( "gender", mGender );
       aHeaderMap.put( "profession", mProfession );
       aHeaderMap.put( "lang_id", "1" );
-      aHeaderMap.put( "fcm_id", Prefs.getString( "FCM_Token", "" ) );
+
+      // String token = "";
+
+      FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( mContext, new OnSuccessListener<InstanceIdResult>() {
+         @Override
+         public void onSuccess( InstanceIdResult instanceIdResult ) {
+            token = instanceIdResult.getToken();
+            Log.e( "newToken", token );
+         }
+      } );
+
+      aHeaderMap.put( "fcm_id", token );
+      // aHeaderMap.put( "fcm_id", Prefs.getString( "FCM_Token", "" ) );
 
       myRetrofitInstance.getAPI().PutRegisterAPI( aHeaderMap ).enqueue( new Callback<Response>() {
          @Override
